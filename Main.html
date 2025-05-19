@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>
+        Cửa Hàng Apple
+    </title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Text:wght@400;600&amp;display=swap" rel="stylesheet"/>
+    <style>
+        body {
+        font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont,
+            "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+            "Helvetica Neue", sans-serif;
+        }
+        header {
+            position: sticky;
+            top: 0;  /* Đảm bảo header ở trên cùng */
+            background-color:rgba(255, 255, 255, 0.7);  /* Thêm màu nền để dễ nhìn */
+            z-index: 1000;  /* Đảm bảo header hiển thị trên các phần tử khác */
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* Tạo bóng mờ cho header */
+        }
+    </style>
+</head>
+<body class="bg-[#f5f7f7] text-black">
+  <header class="w-full flex justify-center px-4 py-2 text-[20px] text-black/80">
+    <nav>
+      <ul class="flex items-center justify-center flex-wrap gap-4 sm:gap-6 relative">
+        <!-- Logo -->
+        <li>
+          <a class="flex items-center" href="trangchu.html">
+            <img alt="Apple logo black" class="block" height="45" src="Image/logo.webp" width="41" />
+          </a>
+        </li>
+
+        <!-- Các menu chính -->
+        <li><a class="hover:underline" href="Main.html">Cửa Hàng</a></li>
+        <li class="relative group">
+          <a class="hover:underline cursor-pointer" href="Mac.html">Mac</a>
+          <ul class="absolute left-0 mt-2 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
+            <li><a href="Mac.html#MacbookAir" class="block px-4 py-2 hover:bg-gray-100">Macbook Air</a></li>
+            <li><a href="Mac.html#MacbookPro" class="block px-4 py-2 hover:bg-gray-100">Macbook Pro</a></li>
+          </ul> 
+        </li>
+
+        <li class="relative group">
+          <a class="hover:underline cursor-pointer" href="iPad.html">iPad</a>
+          <ul class="absolute left-0 mt-2 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
+            <li><a href="iPad.html#iPadPro" class="block px-4 py-2 hover:bg-gray-100">iPad Pro </a></li>
+            <li><a href="iPad.html#iPadAir" class="block px-4 py-2 hover:bg-gray-100">iPad Air</a></li>
+            <li><a href="iPad.html#iPadMini" class="block px-4 py-2 hover:bg-gray-100">iPad Mini</a></li>
+            <li><a href="iPad.html#iPadGen" class="block px-4 py-2 hover:bg-gray-100">iPad Gen</a></li>
+          </ul> 
+        </li>
+
+        <li class="group relative">
+          <a class="hover:underline cursor-pointer" href="iPhone.html">iPhone</a>
+          <ul class="absolute left-0 mt-2 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
+            <li><a href="iPhone.html#iPhone15" class="block px-4 py-2 hover:bg-gray-100">iPhone 15</a></li>
+            <li><a href="iPhone.html#iPhone14" class="block px-4 py-2 hover:bg-gray-100">iPhone 14</a></li>
+            <li><a href="iPhone.html#iPhone13" class="block px-4 py-2 hover:bg-gray-100">iPhone 13</a></li>
+            <li><a href="iPhone.html#iPhone12" class="block px-4 py-2 hover:bg-gray-100">iPhone 12</a></li>
+            <li><a href="iPhone.html#iPhone11" class="block px-4 py-2 hover:bg-gray-100">iPhone 11</a></li>
+          </ul>
+        </li>
+
+        <li class="group relative">
+          <a class="hover:underline cursor-pointer" href="Watch.html">Watch</a>
+          <ul class="absolute left-0 mt-2 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
+            <li><a href="Watch.html#WatchSeries" class="block px-4 py-2 hover:bg-gray-100">Apple Watch Series</a></li>
+            <li><a href="Watch.html#WatchSE" class="block px-4 py-2 hover:bg-gray-100">Apple Watch SE</a></li>
+            <li><a href="Watch.html#WatchUltra" class="block px-4 py-2 hover:bg-gray-100">Apple Watch Ultra</a></li>
+          </ul>
+        </li>
+
+        <li class="group relative">
+          <a class="hover:underline cursor-pointer" href="AirPods.html">AirPods</a>
+          <ul class="absolute left-0 mt-2 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
+            <li><a href="AirPods.html#AirPods" class="block px-4 py-2 hover:bg-gray-100">AirPods</a></li>
+            <li><a href="AirPods.html#AirPodsPro" class="block px-4 py-2 hover:bg-gray-100">AirPods Pro</a></li>
+            <li><a href="AirPods.html#AirPodsMax" class="block px-4 py-2 hover:bg-gray-100">AirPods Max</a></li>
+          </ul>
+        </li>
+        <li><a class="hover:underline" href="TV&Nha.html">TV &amp; Nhà</a></li>
+        <li><a class="hover:underline" href="Giaitri.html">Giải Trí</a></li>
+        <li><a class="hover:underline" href="Phukien.html">Phụ Kiện</a></li>
+        <li><a class="hover:underline" href="Hotro.html">Hỗ Trợ</a></li>
+      </ul>
+    </nav>
+
+    <!-- Tìm kiếm và đăng nhập -->
+    <div class="hidden md:flex items-center space-x-4 text-gray-700 ml-6">
+      <button 
+        aria-label="Search" 
+        class="hover:text-black" 
+        onclick="toggleSearchForm()"
+      >
+        <i class="fas fa-search"></i>
+      </button>
+      <div id="searchForm" class="hidden mt-4 w-full max-w-sm mx-auto">
+        <form class="flex items-center">
+          <input 
+            type="text" 
+            placeholder="Tìm kiếm sản phẩm..." 
+            class="w-full px-3 py-2 text-sm text-black focus:outline-none" 
+          />
+          <button type="submit" class="bg-black text-white px-3 py-2 text-sm hover:bg-gray-800">
+            Tìm
+          </button>
+        </form>
+      </div>
+      
+      <a href="dangnhap.html">
+          <button aria-label="User account" class="hover:text-black">
+            <i class="fas fa-user"></i>
+          </button>
+        </a>
+    </div>
+      </div>
+    <script>
+    function toggleSearchForm() {
+        const form = document.getElementById('searchForm');
+        form.classList.toggle('hidden');
+    }
+    </script>
+</header>
+  <main class="max-w-[1200px] mx-auto px-4 pt-8 pb-16">
+   <section class="flex flex-col sm:flex-row sm:justify-between sm:items-start gap-6 sm:gap-0">
+    <h1 class="text-3xl sm:text-4xl font-semibold max-w-[600px] leading-[1.2]">
+     <span class="font-extrabold">
+      Cửa Hàng.
+     </span>
+     <span class="text-gray-600 font-semibold">
+      Cách tốt nhất để mua sản phẩm bạn thích.
+     </span>
+    </h1>
+   </section>
+   <section class="mt-10 flex flex-nowrap overflow-x-auto gap-x-6 max-w-full px-4">
+    <a class="shrink-0 flex flex-col items-center text-[12px] sm:text-[13px] text-black/80 hover:text-black" href="Mac.html">
+      <img alt="Mac devices with screen and keyboard" class="mb-1" src="Image/Mac.png" height="200" width="120"/>
+      Mac
+    </a>
+    <a class="shrink-0 flex flex-col items-center text-[12px] sm:text-[13px] text-black/80 hover:text-black" href="iPhone.html">
+      <img alt="iPhone 13 and 14 models" class="mb-1" src="Image/Iphone.png" height="200" width="120"/>
+      iPhone
+    </a>
+    <a class="shrink-0 flex flex-col items-center text-[12px] sm:text-[13px] text-black/80 hover:text-black" href="iPad.html">
+      <img alt="iPad devices with screen" class="mb-1" src="Image/IPad.png" height="200" width="120"/>
+      iPad
+    </a>
+    <a class="shrink-0 flex flex-col items-center text-[12px] sm:text-[13px] text-black/80 hover:text-black" href="Watch.html">
+      <img alt="Apple Watch models with screen" class="mb-1" src="Image/AppleWatch.png" height="200" width="120"/>
+      Apple Watch
+    </a>
+    <a class="shrink-0 flex flex-col items-center text-[12px] sm:text-[13px] text-black/80 hover:text-black" href="AirPods.html">
+      <img alt="AirPods case and earbuds" class="mb-1" src="Image/AirPods.png" height="200" width="120"/>
+      AirPods
+    </a>
+    <a class="shrink-0 flex flex-col items-center text-[12px] sm:text-[13px] text-black/80 hover:text-black" href="Phukien.html">
+      <img alt="AirTag device round white" class="mb-1" src="Image/Airtag.png" height="200" width="120"/>
+      AirTag
+    </a>
+    <a class="shrink-0 flex flex-col items-center text-[12px] sm:text-[13px] text-black/80 hover:text-black" href="TV&Nha.html">
+      <img alt="Apple TV 4K remote and box" class="mb-1" src="Image/Apple TV 4K.png" height="200" width="120"/>
+      Apple TV 4K
+    </a>
+    <a class="shrink-0 flex flex-col items-center text-[12px] sm:text-[13px] text-black/80 hover:text-black" href="Phukien.html">
+      <img alt="Pink iPhone case and watch band" class="mb-1" src="Image/Phụ kiện.png" height="200" width="120"/>
+      Phụ Kiện
+    </a>
+  </section>
+
+  <section class="px-4 py-6 max-w-7xl mx-auto">
+    <h2 class="w-full text-xl sm:text-2xl font-semibold mb-4 px-2">
+      <span>Thế hệ mới nhất.</span>
+      <span class="font-semibold text-gray-600">Xem ngay có gì mới.</span>
+    </h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 items-start text-left max-w-screen-xl w-full">
+      <!-- Thẻ 1 -->
+      <div class="rounded-2xl bg-white p-5 h-full flex flex-col justify-between">
+        <h3 class="font-extrabold text-xl leading-tight mb-2">Mừng Ngày Trái Đất vào bất kỳ ngày nào.</h3>
+        <p class="text-sm text-gray-900 mb-4">Bạn có thể tái chế miễn phí các thiết bị, phụ kiện và nhiều sản phẩm Apple ngay hôm nay và bất kể ngày nào.</p>
+        <img src="Image/World.jpg" alt="Tái chế thiết bị Apple" class="w-full h-auto rounded-lg object-contain">
+      </div>
+      <!-- Thẻ 2 -->
+      <a href="iPhone.html">
+        <div class="rounded-2xl bg-black text-white p-5 h-full flex flex-col justify-between">
+          <h3 class="font-extrabold text-xl leading-tight mb-2">iPhone 16 Pro</h3>
+          <p class="text-sm text-white mb-1">Một iPhone cực đỉnh.</p>
+          <p class="text-sm text-white mb-4">Từ 28.999.000đ hoặc 1.181.000đ/tháng trong 24 tháng*</p>
+          <img src="Image/new.jpg" alt="iPhone 16 Pro" class="w-full h-auto rounded-lg object-contain">
+        </div>
+      </a>
+      <!-- Thẻ 3 -->
+      <a href="Watch.html#WatchSeries">
+        <div class="rounded-2xl bg-white p-5 h-[410px] flex flex-col justify-between">
+          <h3 class="font-extrabold text-xl leading-tight mb-2">Apple Watch Series 10</h3>
+          <p class="text-sm text-gray-900 mb-1">Mỏng hơn! Mãi đỉnh!</p>
+          <p class="text-sm text-gray-600 mb-4">Từ 10.999.000đ hoặc 448.000đ/tháng trong 24 tháng*</p>
+          <img src="Image/đồng hồ.jpg" alt="Apple Watch Series 10" class="w-full h-auto rounded-lg object-contain">
+        </div>
+      </a>
+      <!-- Thẻ 4 -->
+      <a href="iPad.html#iPadAir">
+        <div class="rounded-2xl bg-white p-5 h-full flex flex-col justify-between">
+          <h3 class="font-extrabold text-xl leading-tight mb-2">IPad Air</h3>
+          <p class="text-sm text-gray-900 mb-1">Nhanh như bay</p>
+          <p class="text-sm text-gray-600 mb-4">Từ 16.999.000đ hoặc 692.000đ/tháng trong 24 tháng*</p>
+          <img src="Image/Ipad_nhanh_nhu_bay.jpg" alt="iPad Air" class="w-full h-auto rounded-lg object-contain">
+        </div>
+      </a>
+      <!-- Thẻ 5 -->
+      <a href="Mac.html#MacBookAir">
+        <div class="rounded-2xl bg-blue-100 text-black p-5 h-[430px] flex flex-col justify-between">
+          <h3 class="font-extrabold text-xl leading-tight mb-2">Macbook Air</h3>
+          <p class="text-sm text-black mb-1">MMM* Mỏng Mà "Mượt"!</p>
+          <p class="text-sm text-gray-600 mb-4">Từ 26.999.000đ hoặc 692.000đ/tháng trong 24 tháng*</p>
+          <img src="Image/Macbook Air.jpg" alt="MacBook Air" class="w-full h-auto rounded-lg object-contain">
+        </div>
+      </a>
+      <!-- Thẻ 6 -->
+      <a href="Phukien.html" class="block rounded-2xl bg-white p-4 h-full flex flex-col hover:shadow-md transition">
+        <div class="rounded-2xl bg-white p-5 h-full flex flex-col justify-between">
+          <h3 class="font-extrabold text-xl leading-tight mb-2">Dây đeo Apple Watch</h3>
+          <p class="text-sm text-gray-900 mb-4">Thể hiện cảm xúc<br>Thỏa mãn giác quan</p>
+          <img src="Image/dây đeo.jpg" alt="Dây đeo Apple Watch" class="w-full h-auto rounded-lg object-contain">
+        </div>
+      </a>
+    </div>
+  </section>
+  
+    <section class="px-4 py-6 max-w-7xl mx-auto">
+      <h2 class="w-full text-lg sm:text-xl font-semibold mb-2 px-2">
+        <span>
+        Phụ kiện.
+        </span>
+        <span class="font-semibold text-gray-600">
+        Những phụ kiện kết hợp hoàn hảo với thiết bị của bạn.
+        </span>
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-start text-left max-w-screen-xl w-full">
+        <a href="Phukien.html" class="block rounded-2xl bg-white p-4 h-full flex flex-col hover:shadow-md transition">
+          <div class="text-center mb-4">
+            <h3 class="font-extrabold text-lg leading-tight">
+              Khám phá tất cả các <br>phụ kiện
+            </h3>
+          </div>
+          <div class="flex-1 flex items-center justify-center">
+            <img class="w-[200px] h-auto rounded-lg object-contain" src="Image/khamphatatcaphukien.jpg" height="220" width="220"/>
+          </div>
+        </a>
+        
+        <div class="rounded-2xl bg-white p-4 h-full flex flex-col justify-between">
+        <a href="Phukien.html">
+          <div class="flex justify-center mb-2">
+            <img src="Image/ốp.jpg" height="160" width="120"/>
+          </div>
+          <div class="flex justify-center space-x-1 mb-2">
+            <span class="w-3 h-3 rounded-full bg-[#ff6fb9] border border-gray-300"></span>
+            <span class="w-3 h-3 rounded-full bg-[#f7d6d6] border border-gray-300"></span>
+            <span class="w-3 h-3 rounded-full bg-[#f7f0d6] border border-gray-300"></span>
+            <span class="w-3 h-3 rounded-full bg-[#d6f7d6] border border-gray-300"></span>
+            <span class="w-3 h-3 rounded-full bg-[#d6d6f7] border border-gray-300"></span>
+            <span class="w-3 h-3 rounded-full bg-[#2a2a7a] border border-gray-300"></span>
+            <span class="text-gray-400 font-semibold">+</span>
+          </div>
+          <p class="text-xs text-orange-600 font-semibold mb-1">Mới</p>
+          <h3 class="text-sm font-semibold leading-tight mb-1">Ốp Lưng Silicon MagSafe cho iPhone 16 Pro Max - Hồng Mã...</h3>
+          <p class="text-xs text-gray-900">1.429.000₫</p>
+        </a>
+        </div>
+
+        <div class="rounded-2xl bg-white p-4 h-full flex flex-col justify-between">
+        <a href="Phukien.html">
+          <div class="flex justify-center mb-2">
+            <img src="Image/daydeo.jpg" height="160" width="120"/>
+          </div>
+          <div class="flex justify-center space-x-1 mb-2">
+            <span class="w-3 h-3 rounded-full bg-[#c6e7d9] border border-gray-300"></span>
+            <span class="w-3 h-3 rounded-full bg-[#f7d6d6] border border-gray-300"></span>
+            <span class="w-3 h-3 rounded-full bg-[#f7f0d6] border border-gray-300"></span>
+            <span class="w-3 h-3 rounded-full bg-[#2a2a2a] border border-gray-300"></span>
+            <span class="w-3 h-3 rounded-full bg-[#8a8a8a] border border-gray-300"></span>
+            <span class="text-gray-400 font-semibold">+</span>
+          </div>
+          <p class="text-xs text-orange-600 font-semibold mb-1">Mới</p>
+          <h3 class="text-sm font-semibold leading-tight mb-1">Dây Đeo Thể Thao Màu Xanh Ngọc Biển 40mm - M/L</h3>
+          <p class="text-xs text-gray-900">1.399.000₫</p>
+        </a>
+        </div>
+        <div class="rounded-2xl bg-white p-4 h-full flex flex-col justify-between">
+        <a href="iPhone.html">
+          <h3 class="font-extrabold text-lg leading-tight mb-1">
+            Đón máy về
+          </h3>
+          <p class="text-xs text-gray-900 mb-4 leading-tight">
+            Các phụ kiện bạn yêu.
+            <br>Với cách phối mới giữa nhiều màu sắc.
+          </p>
+          <img class="w-full h-auto rounded-lg object-contain" src="Image/đón máy về.jpg" height="220" width="220"/>
+        </a>
+        </div>
+    </section>
+
+   <section class="px-4 py-6 max-w-7xl mx-auto">
+    <h2 class="w-full text-lg sm:text-xl font-semibold mb-2 px-2">
+      <span>
+       To rõ, trong trẻo.
+      </span>
+      <span class="font-semibold text-gray-600">
+       Lựa chọn hàng đầu cho âm thanh tròn đầy, chất lượng cao.
+      </span>
+     </h2>
+     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-start text-left max-w-screen-xl w-full">
+      <div class="rounded-2xl bg-white p-4 h-full flex flex-col justify-between">
+      <a href="Giaitri.html">
+        <h3 class="font-extrabold text-lg leading-tight mb-1">
+          Tặng 3 tháng sử dụng Apple Music miễn phí.
+        </h3>
+        <p class="text-xs text-gray-900 mb-4 leading-tight">
+          Đi kèm khi mua một số thiết bị Apple.
+        </p>
+        <img class="w-full h-auto rounded-lg object-contain" src="Image/AppleMusic.jpg" height="220" width="220"/>
+      </a>
+      </div>
+      <a href="AirPods.html#AirPodsPro">
+        <div class="rounded-2xl bg-white p-4 h-full flex flex-col justify-between">
+          <div class="flex justify-center mb-2">
+            <img src="Image/AirPods4.jpg" height="160" width="120"/>
+          </div>
+          <p class="text-xs text-orange-600 font-semibold mb-1">Khắc miễn phí</p>
+          <h3 class="text-sm font-semibold leading-tight mb-1">
+            AirPod 4 với chủ động khử tiếng ồn
+          </h3>
+          <p class="text-xs text-gray-900">4.799.000₫</p>
+        </div>
+      </a>
+      <a href="AirPods.html">
+        <div class="rounded-2xl bg-white p-4 h-full flex flex-col justify-between">
+          <div class="flex justify-center mb-2">
+            <img src="Image/Beats Solo 4.jpg" height="160" width="120"/>
+          </div>
+          <div class="flex justify-center space-x-1 mb-2">
+            <span class="w-3 h-3 rounded-full bg-[#c6e7d9] border border-gray-300"></span>
+            <span class="w-3 h-3 rounded-full bg-[#f7d6d6] border border-gray-300"></span>
+            <span class="w-3 h-3 rounded-full bg-[#f7f0d6] border border-gray-300"></span>
+            <span class="w-3 h-3 rounded-full bg-[#2a2a2a] border border-gray-300"></span>
+            <span class="w-3 h-3 rounded-full bg-[#8a8a8a] border border-gray-300"></span>
+            <span class="text-gray-400 font-semibold">+</span>
+          </div>
+          <p class="text-xs text-orange-600 font-semibold mb-1">Mới</p>
+          <h3 class="text-sm font-semibold leading-tight mb-1">
+            Beats Solo 4 - Tai nghe kiểu áp tai không dây - Mây hồng
+          </h3>
+          <p class="text-xs text-gray-900">1.399.000₫</p>
+        </div>
+      </a>
+      <a href="AirPods.html" class="block rounded-2xl bg-white p-4 h-full flex flex-col hover:shadow-md transition">
+        <div class="text-center mb-4">
+          <h3 class="font-extrabold text-lg leading-tight">
+            Khám phá tất cả các <br>tai nghe
+          </h3>
+        </div>
+        <div class="flex-1 flex items-center justify-center">
+          <img class="w-[200px] h-auto rounded-lg object-contain" src="Image/Beat Pill.jpg" height="220" width="220"/>
+        </div>
+      </a>
+   </section>
+
+   <section class="px-4 py-6 max-w-7xl mx-auto">
+    <h2 class="w-full text-lg sm:text-xl font-semibold mb-2 px-2">
+      <span>
+       Cửa hàng đặc biệt.
+      </span>
+      <span class="font-semibold text-gray-600">
+       Tiết kiệm độc quyền cho sinh viên, nhà giáo dục và doanh nghiệp.
+      </span>
+     </h2>
+     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 items-start text-left max-w-screen-xl w-full">
+      <a href="">
+        <div class="rounded-2xl bg-white p-4 h-full flex flex-col justify-between">
+          <h3 class="font-semibold text-xl leading-tight mb-3">
+            Tiết kiệm khi mua iPad hoặc Mac với chính sách "sát cánh" cùng giáo dục.
+          </h3>
+          <img class="w-full h-auto rounded-lg object-contain" src="Image/giaoduc.jpg" height="220" width="220"/>
+        </div>
+      </a>
+
+      <a href="">
+        <div class="rounded-2xl bg-black text-white p-4 h-full flex flex-col justify-between">
+          <h3 class="font-semibold text-xl leading-tight mb-3">
+            Từ doanh nghiệp lớn đến doanh nghiệp nhỏ, chúng tôi đồng hành cùng bạn.
+          </h3>
+          <div class="flex justify-center mb-2">
+            <img src="Image/doanhnghiep.jpg" height="h-auto" width="w-auto"/>
+          </div>
+        </div>
+      </a>
+   </section>
+  </main>
+   <br>
+   <footer class="bg-black text-white text-[15px] font-sans rounded-t-2xl">
+    <div class="max-w-[1200px] mx-auto px-4 py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+      <div>
+        <h3 class="font-semibold mb-2">Sản phẩm</h3>
+        <ul class="space-y-1">
+          <li>
+            <a href="iPhone.html">Iphone</a>
+          </li>
+          <li>
+            <a href="Mac.html">IMac</a>
+          </li>
+          <li>
+            <a href="iPad.html">IPad</a>
+          </li>
+          <li>
+            <a href="Watch.html">Apple Watch</a>
+          </li>
+          <li>
+            <a href="AirPods.html">AirPods</a>
+          </li>
+          <li>
+            <a href="Phukien.html">Phụ Kiện</a>
+          </li>
+          <li>
+            <a href="TV&Nha.html">TV&Nha</a>
+          </li>
+          <li>
+            <a href="Giaitri.html">Giải trí</a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="font-semibold mb-2">Thông tin liên hệ</h3>
+        <ul class="space-y-1">
+          <li>
+            <a href="">Chăm sóc khách hàng</a>
+          </li>
+          <li>
+            <a href="">Dịch vụ sửa chữa Trương Hiện Care</a>
+          </li>
+          <li>
+            <a href="">Khách hàng doanh nghiệp</a>
+          </li>
+          <li>
+            <a href="">Tuyển dụng</a>
+          </li>
+          <li>
+            <a href="">Tra cứu bảo hành</a>
+          </li>
+        </ul>
+      </div>
+      <div>
+        <a href="">
+          <p class="font-semibold mb-2">Thanh toán miễn phí</p>
+        </a>
+        <a href="">
+          <p class="font-semibold mb-2">Hình thức vận chuyển</p>
+        </a>
+      </div>
+      <div>
+        <p class="font-semibold mb-1">Tổng đài</p>
+        <div class="bg-white text-black font-semibold rounded px-2 py-1 w-max mb-1 inline-block text-[14px]">
+          0376834541
+        </div>
+        <p class="text-[10px] mb-3">(Từ 8h30 - 21h30)</p>
+        <p class="font-semibold">Liên hệ với chúng tôi</p>
+      </div>
+    </div>
+    <div class="max-w-[1200px] mx-auto px-4 pb-4 text-[10px] text-center font-sans">
+      <p>
+        © 2025. CÔNG TY CỔ PHẦN XÂY DỰNG VÀ ĐẦU TƯ THƯƠNG MẠI TRƯƠNG HIỆN IT.
+      </p>
+      <p>
+        Địa chỉ: Số 87 Yên Xá, Phường Tân Triều, Quận Thanh Trì, Hà Nội.
+        Điện thoại: +84.376.345.41. Chủ trách nhiệm nội dung: <span class="font-semibold">Trương Công Hiện.</span>
+      </p>
+    </div>
+  </footer>
+     <button aria-label="Chat ngay" class="fixed bottom-6 right-6 bg-[#2a5f4d] text-white text-[14px] font-semibold rounded-md px-4 py-2 flex items-center space-x-2 shadow-md hover:bg-[#244d3f] transition" type="button">
+      <span>
+       CHAT NGAY
+      </span>
+     </button>
+ </body>
+</html>

@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>
+        Cửa Hàng Apple
+    </title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Text:wght@400;600&amp;display=swap" rel="stylesheet"/>
+    <style>
+        body {
+        font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont,
+            "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+            "Helvetica Neue", sans-serif;
+        }
+        header {
+            position: sticky;
+            top: 0;  /* Đảm bảo header ở trên cùng */
+            background-color:rgba(255, 255, 255, 0.7);  /* Thêm màu nền để dễ nhìn */
+            z-index: 1000;  /* Đảm bảo header hiển thị trên các phần tử khác */
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* Tạo bóng mờ cho header */
+        }
+    </style>
+</head>
+<body class="bg-[#f5f7f7] text-black">
+  <header class="w-full flex justify-center px-4 py-2 text-[20px] text-black/80">
+    <nav>
+      <ul class="flex items-center justify-center flex-wrap gap-4 sm:gap-6 relative">
+        <!-- Logo -->
+        <li>
+          <a class="flex items-center" href="trangchu.html">
+            <img alt="Apple logo black" class="block" height="45" src="Image/logo.webp" width="41" />
+          </a>
+        </li>
+
+        <!-- Các menu chính -->
+        <li><a class="hover:underline" href="Main.html">Cửa Hàng</a></li>
+        <li class="relative group">
+          <a class="hover:underline cursor-pointer" href="Mac.html">Mac</a>
+          <ul class="absolute left-0 mt-2 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
+            <li><a href="Mac.html#MacbookAir" class="block px-4 py-2 hover:bg-gray-100">Macbook Air</a></li>
+            <li><a href="Mac.html#MacbookPro" class="block px-4 py-2 hover:bg-gray-100">Macbook Pro</a></li>
+          </ul> 
+        </li>
+
+        <li class="relative group">
+          <a class="hover:underline cursor-pointer" href="iPad.html">iPad</a>
+          <ul class="absolute left-0 mt-2 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
+            <li><a href="iPad.html#iPadPro" class="block px-4 py-2 hover:bg-gray-100">iPad Pro </a></li>
+            <li><a href="iPad.html#iPadAir" class="block px-4 py-2 hover:bg-gray-100">iPad Air</a></li>
+            <li><a href="iPad.html#iPadMini" class="block px-4 py-2 hover:bg-gray-100">iPad Mini</a></li>
+            <li><a href="iPad.html#iPadGen" class="block px-4 py-2 hover:bg-gray-100">iPad Gen</a></li>
+          </ul> 
+        </li>
+
+        <li class="group relative">
+          <a class="hover:underline cursor-pointer" href="iPhone.html">iPhone</a>
+          <ul class="absolute left-0 mt-2 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
+            <li><a href="iPhone.html#iPhone15" class="block px-4 py-2 hover:bg-gray-100">iPhone 15</a></li>
+            <li><a href="iPhone.html#iPhone14" class="block px-4 py-2 hover:bg-gray-100">iPhone 14</a></li>
+            <li><a href="iPhone.html#iPhone13" class="block px-4 py-2 hover:bg-gray-100">iPhone 13</a></li>
+            <li><a href="iPhone.html#iPhone12" class="block px-4 py-2 hover:bg-gray-100">iPhone 12</a></li>
+            <li><a href="iPhone.html#iPhone11" class="block px-4 py-2 hover:bg-gray-100">iPhone 11</a></li>
+          </ul>
+        </li>
+
+        <li class="group relative">
+          <a class="hover:underline cursor-pointer" href="Watch.html">Watch</a>
+          <ul class="absolute left-0 mt-2 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
+            <li><a href="Watch.html#WatchSeries" class="block px-4 py-2 hover:bg-gray-100">Apple Watch Series</a></li>
+            <li><a href="Watch.html#WatchSE" class="block px-4 py-2 hover:bg-gray-100">Apple Watch SE</a></li>
+            <li><a href="Watch.html#WatchUltra" class="block px-4 py-2 hover:bg-gray-100">Apple Watch Ultra</a></li>
+          </ul>
+        </li>
+
+        <li class="group relative">
+          <a class="hover:underline cursor-pointer" href="AirPods.html">AirPods</a>
+          <ul class="absolute left-0 mt-2 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
+            <li><a href="AirPods.html#AirPods" class="block px-4 py-2 hover:bg-gray-100">AirPods</a></li>
+            <li><a href="AirPods.html#AirPodsPro" class="block px-4 py-2 hover:bg-gray-100">AirPods Pro</a></li>
+            <li><a href="AirPods.html#AirPodsMax" class="block px-4 py-2 hover:bg-gray-100">AirPods Max</a></li>
+          </ul>
+        </li>
+        <li><a class="hover:underline" href="TV&Nha.html">TV &amp; Nhà</a></li>
+        <li><a class="hover:underline" href="Giaitri.html">Giải Trí</a></li>
+        <li><a class="hover:underline" href="Phukien.html">Phụ Kiện</a></li>
+        <li><a class="hover:underline" href="Hotro.html">Hỗ Trợ</a></li>
+      </ul>
+    </nav>
+
+    <!-- Tìm kiếm và đăng nhập -->
+    <div class="hidden md:flex items-center space-x-4 text-gray-700 ml-6">
+      <button 
+        aria-label="Search" 
+        class="hover:text-black" 
+        onclick="toggleSearchForm()"
+      >
+        <i class="fas fa-search"></i>
+      </button>
+      <div id="searchForm" class="hidden mt-4 w-full max-w-sm mx-auto">
+        <form class="flex items-center">
+          <input 
+            type="text" 
+            placeholder="Tìm kiếm sản phẩm..." 
+            class="w-full px-3 py-2 text-sm text-black focus:outline-none" 
+          />
+          <button type="submit" class="bg-black text-white px-3 py-2 text-sm hover:bg-gray-800">
+            Tìm
+          </button>
+        </form>
+      </div>
+      
+      <a href="dangnhap.html">
+          <button aria-label="User account" class="hover:text-black">
+            <i class="fas fa-user"></i>
+          </button>
+        </a>
+    </div>
+      </div>
+    <script>
+    function toggleSearchForm() {
+        const form = document.getElementById('searchForm');
+        form.classList.toggle('hidden');
+    }
+    </script>
+</header>
+  <main>
+    <div style="display: flex; justify-content: center; align-items: center; height: 20vh;">
+        <h1 style="font-size: 110px; font-weight: 800; color: black;">Phụ kiện Apple</h1>
+        <br>
+    </div>
+    <div class="max-w-[1200px] mx-auto px-4 py-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-4">
+      <img src="Image/phụ kiện/panel.png" alt="Panel phụ kiện" class="mt-2 rounded-xl">
+    </div>
+    <br>
+    <br>
+    <section class="max-w-[1200px] mx-auto px-4 py-8">
+      <h2 class="text-4xl font-semibold text-center text-gray-1000 mb-4">
+        Tìm phụ kiện mong muốn.
+      </h2>
+      <div class="flex justify-center">
+        <div class="relative w-full max-w-xl">
+          <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 3.5a7.5 7.5 0 0013.15 13.15z" />
+            </svg>
+          </span>
+          <input type="text" placeholder="Hãy cho tôi biết bạn cần gì?"
+                class="w-full border border-gray-300 rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent">
+        </div>
+      </div>
+      <br>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center text-center">
+          <!-- Card 1 -->
+            <div class="relative rounded-2xl bg-black/90 p-4 h-full flex flex-col justify-between min-h-[320px]">
+            <img src="Image/phụ kiện/pencil_pro.png" alt="phụ kiện" class="mt-2 rounded-xl">
+            <h3 class="font-semibold text-sm mb-1 text-white justify-center">Apple Pencil (USB-C)</h3>
+            <p class="text-red-600 text-lg font-bold">2.090.000₫</p>
+            <p class="line-through text-gray-500 text-sm">2.190.000₫</p>
+            </div> 
+
+            <!-- Card 2 -->
+            <div class="relative rounded-2xl bg-black/90 p-4 h-full flex flex-col justify-between min-h-[320px]">
+            <img src="Image/phụ kiện/sạc apple.png" alt="phụ kiện" class="mt-2 rounded-xl">
+            <h3 class="font-semibold text-sm mb-1 text-white justify-center">Sạc Apple USB-C 20W </h3>
+            <p class="text-red-600 text-lg font-bold">550.000₫</p>
+            <p class="line-through text-gray-500 text-sm">550.000₫</p>
+            </div>  
+
+            <!-- Card 3 -->
+            <div class="relative rounded-2xl bg-black/90 p-4 h-full flex flex-col justify-between min-h-[320px]">
+            <img src="Image/phụ kiện/sạc type C.png" alt="phụ kiện" class="mt-2 rounded-xl">
+            <h3 class="font-semibold text-sm mb-1 text-white justify-center">Cáp sạc Type C - Type C 1m</h3>
+            <p class="text-red-600 text-lg font-bold">550.000₫</p>
+            <p class="line-through text-gray-500 text-sm">550.000₫</p>
+            </div> 
+
+            <!-- Card 4 -->
+            <div class="relative rounded-2xl bg-black/90 p-4 h-full flex flex-col justify-between min-h-[320px]">
+            <img src="Image/phụ kiện/baoda.png" alt="phụ kiện" class="mt-2 rounded-xl">
+            <h3 class="font-semibold text-sm mb-1 text-white justify-center">Bao da Smart Folio cho iPad Pro M4 11 inch</h3>
+            <p class="text-red-600 text-lg font-bold">2.290.000₫</p>
+            <p class="line-through text-gray-500 text-sm">2.290.000₫</p>
+            </div> 
+
+            <!-- Card 5 -->
+            <div class="relative rounded-2xl bg-black/90 p-4 h-full flex flex-col justify-between min-h-[320px]">
+            <img src="Image/phụ kiện/ốp nhựa.png" alt="phụ kiện" class="mt-2 rounded-xl">
+            <h3 class="font-semibold text-sm mb-1 text-white justify-center">ỐP lưng MagSafe iPhone 16 Pro Max nhựa trong Apple</h3>
+            <p class="text-red-600 text-lg font-bold">1.430.000₫</p>
+            <p class="line-through text-gray-500 text-sm">1.690.000₫</p>
+            </div> 
+
+            <!-- Card 6 -->
+            <div class="relative rounded-2xl bg-black/90 p-4 h-full flex flex-col justify-between min-h-[320px]">
+            <img src="Image/phụ kiện/sạc apple type c.png" alt="phụ kiện" class="mt-2 rounded-xl">
+            <h3 class="font-semibold text-sm mb-1 text-white justify-center">Sạc Apple USB-C 70W</h3>
+            <p class="text-red-600 text-lg font-bold">1.490.000₫</p>
+            <p class="line-through text-gray-500 text-sm">1.550.000₫</p>
+            </div>  
+
+            <!-- Card 7 -->
+            <div class="relative rounded-2xl bg-black/90 p-4 h-full flex flex-col justify-between min-h-[320px]">
+            <img src="Image/phụ kiện/ốp silicon.png" alt="phụ kiện" class="mt-2 rounded-xl">
+            <h3 class="font-semibold text-sm mb-1 text-white justify-center">ỐP lưng MagSafe iPhone 16 Pro Max Silicon Apple</h3>
+            <p class="text-red-600 text-lg font-bold">1.430.000₫</p>
+            <p class="line-through text-gray-500 text-sm">1.760.000₫</p>
+            </div> 
+
+            <!-- Card 8 -->
+            <div class="relative rounded-2xl bg-black/90 p-4 h-full flex flex-col justify-between min-h-[320px]">
+            <img src="Image/phụ kiện/keyboard.png" alt="phụ kiện" class="mt-2 rounded-xl">
+            <h3 class="font-semibold text-sm mb-1 text-white justify-center">Magic keyboard cho iPad Air M2 11 inch</h3>
+            <p class="text-red-600 text-lg font-bold">7.790.000₫</p>
+            <p class="line-through text-gray-500 text-sm">8.290.000₫</p>
+            </div> 
+
+            <!-- Card 9 -->
+            <div class="relative rounded-2xl bg-black/90 p-4 h-full flex flex-col justify-between min-h-[320px]">
+            <img src="Image/phụ kiện/cáp chuyển đổi.png" alt="phụ kiện" class="mt-2 rounded-xl">
+            <h3 class="font-semibold text-sm mb-1 text-white justify-center">Cáp chuyển đổi USB-C sang Lightning</h3>
+            <p class="text-red-600 text-lg font-bold">840.000₫</p>
+            <p class="line-through text-gray-500 text-sm">940.000₫</p>
+            </div> 
+
+            <!-- Card 10 -->
+            <div class="relative rounded-2xl bg-black/90 p-4 h-full flex flex-col justify-between min-h-[320px]">
+            <img src="Image/phụ kiện/Airtag.png" alt="phụ kiện" class="mt-2 rounded-xl">
+            <h3 class="font-semibold text-sm mb-1 text-white justify-center">Airtag</h3>
+            <p class="text-red-600 text-lg font-bold">800.000₫</p>
+            <p class="line-through text-gray-500 text-sm">900.000₫</p>
+            </div>  
+
+            <!-- Card 11 -->
+            <div class="relative rounded-2xl bg-black/90 p-4 h-full flex flex-col justify-between min-h-[320px]">
+            <img src="Image/phụ kiện/ví da magsafe.png" alt="phụ kiện" class="mt-2 rounded-xl">
+            <h3 class="font-semibold text-sm mb-1 text-white justify-center">Ví da MagSafe Apple vải tinh dệt</h3>
+            <p class="text-red-600 text-lg font-bold">1.690.000₫</p>
+            <p class="line-through text-gray-500 text-sm">1.760.000₫</p>
+            </div> 
+
+            <!-- Card 12 -->
+            <div class="relative rounded-2xl bg-black/90 p-4 h-full flex flex-col justify-between min-h-[320px]">
+            <img src="Image/phụ kiện/dây vải.png" alt="phụ kiện" class="mt-2 rounded-xl">
+            <h3 class="font-semibold text-sm mb-1 text-white justify-center">Dây vải Apple Watch 46 mm</h3>
+            <p class="text-red-600 text-lg font-bold">1.390.000₫</p>
+            <p class="line-through text-gray-500 text-sm">1.690.000₫</p>
+            </div> 
+        </div>
+    </section>
+
+  </section>
+        <hr class="my-8 border-t border-gray-300" />
+        <section class="max-w-[1200px] mx-auto px-4 py-8">
+        <h2 class="text-2xl font-bold mb-4">Phụ kiện chính hãng là gì?</h2>
+        <p align="justify" class="mb-6">
+          Phụ kiện chính hãng là hàng được sản xuất bởi chính doanh nghiệp cung cấp hoặc do doanh nghiệp đối tác sản xuất theo hợp đồng đơn đặt hàng và được 
+          bán thông qua các kênh đại lý hoặc nhà phân phối. Những loại phụ kiện chính hãng này thường được làm giả rất nhiều do chất lượng phụ kiện cao tương 
+          ứng với giá thành tương đối mắc. Vì vậy, nhiều nơi sẽ làm giả nhái sản phẩm và bán với mức giá như hàng thật nhằm thu được chênh lệch lớn. Để có một  
+          đảm bảo chất lượng và thời gian sử dụng lâu dài, bạn cần tìm đến những địa chỉ uy tín, bán phụ kiện chính hãng để mua hàng.
+        </p>
+        <h2 class="text-2xl font-bold mb-4">Tại sao phụ kiện dành cho các thiết bị điện tử lại cần thiết?</h2>
+        <ul class="list-disc pl-6 space-y-1">
+          <li align="justify">Một số loại phụ kiện như ốp lưng hay cường lực đảm nhiệm chức năng bảo vệ, chống trầy xước, méo mó hay vỡ cho các thiết bị. Giúp thiết bị điện tử bền bỉ với thời gian.</li>
+          <li>Phụ kiện cũng góp phần tôn thêm vẻ đẹp của thiết bị điện tử, mang lại sự thời thượng, thể hiện được cá tính độc đáo của người dùng.</li>
+          <li>Nhiều loại mang tính di động cao, dễ dàng mang theo bên mình khi di chuyển.</li>
+          <li>Những chiếc dây đồng hồ màu sắc, chiếc ốp lưng xinh xắn hay tai nghe BlueTooth sang trọng, tất cả đều sẽ tô thắm thêm vẻ ngoài phong cách của người sử dụng chúng.</li>
+          <li>Những phụ kiện âm thanh như loa hay tai nghe mang đến những trải nghiệm nghe nhạc, xem phim,… thêm phần ấn tượng, mượt mà..</li>
+        </ul>
+    </section>
+  </main>
+   <hr>
+   <footer class="bg-black text-white text-[15px] font-sans rounded-t-2xl">
+      <div class="max-w-[1200px] mx-auto px-4 py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <div>
+          <h3 class="font-semibold mb-2">Sản phẩm</h3>
+          <ul class="space-y-1">
+            <li>
+              <a href="iPhone.html">Iphone</a>
+            </li>
+            <li>
+              <a href="Mac.html">IMac</a>
+            </li>
+            <li>
+              <a href="iPad.html">IPad</a>
+            </li>
+            <li>
+              <a href="Watch.html">Apple Watch</a>
+            </li>
+            <li>
+              <a href="AirPods.html">AirPods</a>
+            </li>
+            <li>
+              <a href="Phukien.html">Phụ Kiện</a>
+            </li>
+            <li>
+              <a href="TV&Nha.html">TV&Nha</a>
+            </li>
+            <li>
+              <a href="Giaitri.html">Giải trí</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-semibold mb-2">Thông tin liên hệ</h3>
+          <ul class="space-y-1">
+            <li>
+              <a href="">Chăm sóc khách hàng</a>
+            </li>
+            <li>
+              <a href="">Dịch vụ sửa chữa Trương Hiện Care</a>
+            </li>
+            <li>
+              <a href="">Khách hàng doanh nghiệp</a>
+            </li>
+            <li>
+              <a href="">Tuyển dụng</a>
+            </li>
+            <li>
+              <a href="">Tra cứu bảo hành</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <a href="">
+            <p class="font-semibold mb-2">Thanh toán miễn phí</p>
+          </a>
+          <a href="">
+            <p class="font-semibold mb-2">Hình thức vận chuyển</p>
+          </a>
+        </div>
+        <div>
+          <p class="font-semibold mb-1">Tổng đài</p>
+          <div class="bg-white text-black font-semibold rounded px-2 py-1 w-max mb-1 inline-block text-[14px]">
+            0376834541
+          </div>
+          <p class="text-[10px] mb-3">(Từ 8h30 - 21h30)</p>
+          <p class="font-semibold">Liên hệ với chúng tôi</p>
+        </div>
+      </div>
+      <div class="max-w-[1200px] mx-auto px-4 pb-4 text-[10px] text-center font-sans">
+        <p>
+          © 2025. CÔNG TY CỔ PHẦN XÂY DỰNG VÀ ĐẦU TƯ THƯƠNG MẠI TRƯƠNG HIỆN IT.
+        </p>
+        <p>
+          Địa chỉ: Số 87 Yên Xá, Phường Tân Triều, Quận Thanh Trì, Hà Nội.
+          Điện thoại: +84.376.345.41. Chủ trách nhiệm nội dung: <span class="font-semibold">Trương Công Hiện.</span>
+        </p>
+      </div>
+    </footer>
+     <button aria-label="Chat ngay" class="fixed bottom-6 right-6 bg-[#2a5f4d] text-white text-[14px] font-semibold rounded-md px-4 py-2 flex items-center space-x-2 shadow-md hover:bg-[#244d3f] transition" type="button">
+      <span>
+       CHAT NGAY
+      </span>
+     </button>
+</body>
+</html>

@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>
+        Cửa Hàng Apple
+    </title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Text:wght@400;600&amp;display=swap" rel="stylesheet"/>
+    <style>
+        body {
+        font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont,
+            "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+            "Helvetica Neue", sans-serif;
+        }
+        header {
+            position: sticky;
+            top: 0;  /* Đảm bảo header ở trên cùng */
+            background-color:rgba(255, 255, 255, 0.7);  /* Thêm màu nền để dễ nhìn */
+            z-index: 1000;  /* Đảm bảo header hiển thị trên các phần tử khác */
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* Tạo bóng mờ cho header */
+        }
+    </style>
+</head>
+<body class="bg-[#f5f7f7] text-black">
+  <header class="w-full flex justify-center px-4 py-2 text-[20px] text-black/80">
+    <nav>
+      <ul class="flex items-center justify-center flex-wrap gap-4 sm:gap-6 relative">
+        <!-- Logo -->
+        <li>
+          <a class="flex items-center" href="trangchu.html">
+            <img alt="Apple logo black" class="block" height="45" src="Image/logo.webp" width="41" />
+          </a>
+        </li>
+
+        <!-- Các menu chính -->
+        <li><a class="hover:underline" href="Main.html">Cửa Hàng</a></li>
+        <li class="relative group">
+          <a class="hover:underline cursor-pointer" href="Mac.html">Mac</a>
+          <ul class="absolute left-0 mt-2 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
+            <li><a href="Mac.html#MacbookAir" class="block px-4 py-2 hover:bg-gray-100">Macbook Air</a></li>
+            <li><a href="Mac.html#MacbookPro" class="block px-4 py-2 hover:bg-gray-100">Macbook Pro</a></li>
+          </ul> 
+        </li>
+
+        <li class="relative group">
+          <a class="hover:underline cursor-pointer" href="iPad.html">iPad</a>
+          <ul class="absolute left-0 mt-2 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
+            <li><a href="iPad.html#iPadPro" class="block px-4 py-2 hover:bg-gray-100">iPad Pro </a></li>
+            <li><a href="iPad.html#iPadAir" class="block px-4 py-2 hover:bg-gray-100">iPad Air</a></li>
+            <li><a href="iPad.html#iPadMini" class="block px-4 py-2 hover:bg-gray-100">iPad Mini</a></li>
+            <li><a href="iPad.html#iPadGen" class="block px-4 py-2 hover:bg-gray-100">iPad Gen</a></li>
+          </ul> 
+        </li>
+
+        <li class="group relative">
+          <a class="hover:underline cursor-pointer" href="iPhone.html">iPhone</a>
+          <ul class="absolute left-0 mt-2 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
+            <li><a href="iPhone.html#iPhone15" class="block px-4 py-2 hover:bg-gray-100">iPhone 15</a></li>
+            <li><a href="iPhone.html#iPhone14" class="block px-4 py-2 hover:bg-gray-100">iPhone 14</a></li>
+            <li><a href="iPhone.html#iPhone13" class="block px-4 py-2 hover:bg-gray-100">iPhone 13</a></li>
+            <li><a href="iPhone.html#iPhone12" class="block px-4 py-2 hover:bg-gray-100">iPhone 12</a></li>
+            <li><a href="iPhone.html#iPhone11" class="block px-4 py-2 hover:bg-gray-100">iPhone 11</a></li>
+          </ul>
+        </li>
+
+        <li class="group relative">
+          <a class="hover:underline cursor-pointer" href="Watch.html">Watch</a>
+          <ul class="absolute left-0 mt-2 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
+            <li><a href="Watch.html#WatchSeries" class="block px-4 py-2 hover:bg-gray-100">Apple Watch Series</a></li>
+            <li><a href="Watch.html#WatchSE" class="block px-4 py-2 hover:bg-gray-100">Apple Watch SE</a></li>
+            <li><a href="Watch.html#WatchUltra" class="block px-4 py-2 hover:bg-gray-100">Apple Watch Ultra</a></li>
+          </ul>
+        </li>
+
+        <li class="group relative">
+          <a class="hover:underline cursor-pointer" href="AirPods.html">AirPods</a>
+          <ul class="absolute left-0 mt-2 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
+            <li><a href="AirPods.html#AirPods" class="block px-4 py-2 hover:bg-gray-100">AirPods</a></li>
+            <li><a href="AirPods.html#AirPodsPro" class="block px-4 py-2 hover:bg-gray-100">AirPods Pro</a></li>
+            <li><a href="AirPods.html#AirPodsMax" class="block px-4 py-2 hover:bg-gray-100">AirPods Max</a></li>
+          </ul>
+        </li>
+        <li><a class="hover:underline" href="TV&Nha.html">TV &amp; Nhà</a></li>
+        <li><a class="hover:underline" href="Giaitri.html">Giải Trí</a></li>
+        <li><a class="hover:underline" href="Phukien.html">Phụ Kiện</a></li>
+        <li><a class="hover:underline" href="Hotro.html">Hỗ Trợ</a></li>
+      </ul>
+    </nav>
+
+    <!-- Tìm kiếm và đăng nhập -->
+    <div class="hidden md:flex items-center space-x-4 text-gray-700 ml-6">
+      <button 
+        aria-label="Search" 
+        class="hover:text-black" 
+        onclick="toggleSearchForm()"
+      >
+        <i class="fas fa-search"></i>
+      </button>
+      <div id="searchForm" class="hidden mt-4 w-full max-w-sm mx-auto">
+        <form class="flex items-center">
+          <input 
+            type="text" 
+            placeholder="Tìm kiếm sản phẩm..." 
+            class="w-full px-3 py-2 text-sm text-black focus:outline-none" 
+          />
+          <button type="submit" class="bg-black text-white px-3 py-2 text-sm hover:bg-gray-800">
+            Tìm
+          </button>
+        </form>
+      </div>
+      
+      <a href="dangnhap.html">
+          <button aria-label="User account" class="hover:text-black">
+            <i class="fas fa-user"></i>
+          </button>
+        </a>
+    </div>
+      </div>
+    <script>
+    function toggleSearchForm() {
+        const form = document.getElementById('searchForm');
+        form.classList.toggle('hidden');
+    }
+    </script>
+</header>
+  <main>
+    <br>
+    <section class="max-w-[1200px] mx-auto px-4 py-8">
+      <h2 class="text-4xl font-semibold text-center text-gray-1000 mb-4">
+        Tìm kiếm sự hỗ trợ.
+      </h2>
+      <div class="flex justify-center">
+        <div class="relative w-full max-w-xl">
+          <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 3.5a7.5 7.5 0 0013.15 13.15z" />
+            </svg>
+          </span>
+          <input type="text" placeholder="Bạn muỗn hỗ trợ gì?"
+                class="w-full border border-gray-300 rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent">
+        </div>
+      </div>
+    </section>
+    
+    <br>
+    <section class="max-w-[1200px] mx-auto px-4 py-8">
+      <h2 class="text-4xl font-semibold text-center text-gray-1000 mb-4">
+        Dịch vụ sửa chữa Apple.
+      </h2>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 border-4 border-red-400 p-4 rounded-2xl">
+        <div class="text-center">
+          <img src="Image/hỗ trợ/iPhone.png" alt="hỗ trợ" class="w-full max-h-[220px] object-contain p-4 rounded-xl">
+          <p class="mt-0 text-x font-semibold text-gray-1000">iPhone</p>
+        </div>
+
+        <div class="text-center">
+          <img src="Image/hỗ trợ/iPad.png" alt="hỗ trợ" class="w-full max-h-[220px] object-contain p-4 rounded-xl">
+          <p class="mt-0 text-xl font-semibold text-gray-1000">iPad</p>
+        </div>
+
+        <div class="text-center">
+          <img src="Image/hỗ trợ/Macbook.png" alt="hỗ trợ" class="w-full max-h-[220px] object-contain p-4 rounded-xl">
+          <p class="mt-0 text-xl font-semibold text-gray-1000">MacBook</p>
+        </div>
+
+        <div class="text-center">
+          <img src="Image/hỗ trợ/Watch.png" alt="hỗ trợ" class="w-full max-h-[220px] object-contain p-4 rounded-xl">
+          <p class="mt-0 text-x font-semibold text-gray-1000">Apple Watch</p>
+        </div>
+
+        <div class="text-center">
+          <img src="Image/hỗ trợ/AirPods.png" alt="hỗ trợ" class="w-full max-h-[220px] object-contain p-4 rounded-xl">
+          <p class="mt-0 text-x font-semibold text-gray-1000">AirPods</p>
+        </div>
+
+        <div class="text-center">
+          <img src="Image/hỗ trợ/phụ kiện.png" alt="hỗ trợ" class="w-full max-h-[220px] object-contain p-4 rounded-xl">
+          <p class="mt-0 text-x font-semibold text-gray-1000">Phụ kiện</p>
+        </div>
+      </div>
+    </section>
+
+    <br>
+    <section class="max-w-[1200px] mx-auto px-4 py-8">
+      <h2 class="text-4xl font-semibold text-center text-gray-1000 mb-4">
+        Quy trình bảo hành.
+      </h2>
+      <div class="grid grid-cols-3 sm:grid-cols-4 lg:grid-cols-5 gap-8 border-4 border-blue-400 p-4 rounded-2xl">
+        <div class="text-center">
+          <img src="Image/hỗ trợ/kiểm tra tổng quát.png" alt="hỗ trợ" class="w-full max-h-[160px] object-contain p-4 rounded-xl">
+          <p class="mt-0 text-x font-semibold text-gray-1000">Kiểm tra tổng quát trước khi sửa chữa.</p>
+        </div>
+
+        <div class="text-center">
+          <img src="Image/hỗ trợ/đặt linh kiện.png" alt="hỗ trợ" class="w-full max-h-[160px] object-contain p-4 rounded-xl">
+          <p class="mt-0 text-x font-semibold text-gray-1000">Đặt linh kiện.</p>
+        </div>
+
+        <div class="text-center">
+          <img src="Image/hỗ trợ/sửa chữa.png" alt="hỗ trợ" class="w-full max-h-[160px] object-contain p-4 rounded-xl">
+          <p class="mt-0 text-x font-semibold text-gray-1000">Sửa chữa | Thay thế.</p>
+        </div>
+
+        <div class="text-center">
+          <img src="Image/hỗ trợ/kiểm tra tổng quát.png" alt="hỗ trợ" class="w-full max-h-[160px] object-contain p-4 rounded-xl">
+          <p class="mt-0 text-x font-semibold text-gray-1000">Kiểm tra tổng quát sau khi sửa chữa.</p>
+        </div>
+
+        <div class="text-center">
+          <img src="Image/hỗ trợ/trả sản phẩm.png" alt="hỗ trợ" class="w-full max-h-[160px] object-contain p-4 rounded-xl">
+          <p class="mt-0 text-x font-semibold text-gray-1000">Trả sản phẩm</p>
+        </div>
+      </div>
+    </section>
+
+    </section>
+        <hr class="my-8 border-1 border-gray-300" />
+        <section class="max-w-[1200px] mx-auto px-4 py-8">
+        <h2 class="text-2xl font-bold mb-4">Thận trọng với sản phẩm giả ở những cửa hàng giả mạo.</h2>
+        <p align="justify" class="mb-6">
+          Apple rất chú trọng đến chất lượng và tính xác thực của sản phẩm, vì vậy họ luôn cảnh báo người dùng về các sản phẩm giả mạo 
+          hoặc không chính hãng, đặc biệt là trong bối cảnh ngày càng có nhiều cửa hàng hoặc các trang web bán hàng giả mạo. 
+          Những sản phẩm giả này có thể không chỉ là một sự lừa đảo về giá cả, mà còn gây hại cho người dùng theo nhiều cách.
+        </p>
+
+        <h2 class="text-2xl font-bold mb-4">Lời khuyên cho người tiêu dùng:</h2>
+        <ul class="list-disc pl-14 space-y-1">
+          <li align="justify">Mua sản phẩm chỉ từ các nguồn đáng tin cậy: Điều này bao gồm các cửa hàng Apple, trang web chính thức của Apple và các đại lý ủy quyền được Apple chứng nhận.</li>
+          <li align="justify">Cẩn trọng với các giao dịch trực tuyến không rõ nguồn gốc: Tránh mua sản phẩm từ các cửa hàng không uy tín hoặc các trang web không có thông tin rõ ràng về chính sách bảo hành và đổi trả.</li>
+          <li align="justify">Kiểm tra kỹ sản phẩm: Trước khi mua, hãy kiểm tra sản phẩm và bao bì cẩn thận. Nếu có dấu hiệu nghi ngờ, tốt nhất là nên tránh xa.</li>
+        </ul>
+        <p align="justify" class="mb-6 text-s">
+          <i>Trương Hiện IT luôn khuyến khích người dùng bảo vệ quyền lợi của mình và không để mình trở thành nạn nhân của các cửa hàng giả mạo hoặc sản phẩm không chính hãng.</i>
+        </p>
+    </section>
+  </main>
+   <hr>
+   <footer class="bg-black text-white text-[15px] font-sans rounded-t-2xl">
+      <div class="max-w-[1200px] mx-auto px-4 py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <div>
+          <h3 class="font-semibold mb-2">Sản phẩm</h3>
+          <ul class="space-y-1">
+            <li>
+              <a href="iPhone.html">Iphone</a>
+            </li>
+            <li>
+              <a href="Mac.html">IMac</a>
+            </li>
+            <li>
+              <a href="iPad.html">IPad</a>
+            </li>
+            <li>
+              <a href="Watch.html">Apple Watch</a>
+            </li>
+            <li>
+              <a href="AirPods.html">AirPods</a>
+            </li>
+            <li>
+              <a href="Phukien.html">Phụ Kiện</a>
+            </li>
+            <li>
+              <a href="TV&Nha.html">TV&Nha</a>
+            </li>
+            <li>
+              <a href="Giaitri.html">Giải trí</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-semibold mb-2">Thông tin liên hệ</h3>
+          <ul class="space-y-1">
+            <li>
+              <a href="">Chăm sóc khách hàng</a>
+            </li>
+            <li>
+              <a href="">Dịch vụ sửa chữa Trương Hiện Care</a>
+            </li>
+            <li>
+              <a href="">Khách hàng doanh nghiệp</a>
+            </li>
+            <li>
+              <a href="">Tuyển dụng</a>
+            </li>
+            <li>
+              <a href="">Tra cứu bảo hành</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <a href="">
+            <p class="font-semibold mb-2">Thanh toán miễn phí</p>
+          </a>
+          <a href="">
+            <p class="font-semibold mb-2">Hình thức vận chuyển</p>
+          </a>
+        </div>
+        <div>
+          <p class="font-semibold mb-1">Tổng đài</p>
+          <div class="bg-white text-black font-semibold rounded px-2 py-1 w-max mb-1 inline-block text-[14px]">
+            0376834541
+          </div>
+          <p class="text-[10px] mb-3">(Từ 8h30 - 21h30)</p>
+          <p class="font-semibold">Liên hệ với chúng tôi</p>
+        </div>
+      </div>
+      <div class="max-w-[1200px] mx-auto px-4 pb-4 text-[10px] text-center font-sans">
+        <p>
+          © 2025. CÔNG TY CỔ PHẦN XÂY DỰNG VÀ ĐẦU TƯ THƯƠNG MẠI TRƯƠNG HIỆN IT.
+        </p>
+        <p>
+          Địa chỉ: Số 87 Yên Xá, Phường Tân Triều, Quận Thanh Trì, Hà Nội.
+          Điện thoại: +84.376.345.41. Chủ trách nhiệm nội dung: <span class="font-semibold">Trương Công Hiện.</span>
+        </p>
+      </div>
+    </footer>
+     <button aria-label="Chat ngay" class="fixed bottom-6 right-6 bg-[#2a5f4d] text-white text-[14px] font-semibold rounded-md px-4 py-2 flex items-center space-x-2 shadow-md hover:bg-[#244d3f] transition" type="button">
+      <span>
+       CHAT NGAY
+      </span>
+     </button>
+</body>
+</html>
