@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <title>
+        Cửa Hàng Apple
+    </title>
+    <script src="https://cdn.tailwindcss.com">
+    </script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Text:wght@400;600&amp;display=swap" rel="stylesheet"/>
+    <style>
+        body {
+        font-family: "SF Pro Text", -apple-system, BlinkMacSystemFont,
+            "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
+            "Helvetica Neue", sans-serif;
+        }
+        header {
+            position: sticky;
+            top: 0;  /* Đảm bảo header ở trên cùng */
+            background-color:rgba(255, 255, 255, 0.7);  /* Thêm màu nền để dễ nhìn */
+            z-index: 1000;  /* Đảm bảo header hiển thị trên các phần tử khác */
+            width: 100%;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* Tạo bóng mờ cho header */
+        }
+    </style>
+</head>
+<body class="bg-[#f5f7f7] text-black">
+  <header class="w-full flex justify-center px-4 py-2 text-[20px] text-black/80">
+    <nav>
+      <ul class="flex items-center justify-center flex-wrap gap-4 sm:gap-6 relative">
+        <!-- Logo -->
+        <li>
+          <a class="flex items-center" href="trangchu.html">
+            <img alt="Apple logo black" class="block" height="45" src="Image/logo.webp" width="41" />
+          </a>
+        </li>
+
+        <!-- Các menu chính -->
+        <li><a class="hover:underline" href="Main.html">Cửa Hàng</a></li>
+        <li class="relative group">
+          <a class="hover:underline cursor-pointer" href="Mac.html">Mac</a>
+          <ul class="absolute left-0 mt-2 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
+            <li><a href="Mac.html#MacbookAir" class="block px-4 py-2 hover:bg-gray-100">Macbook Air</a></li>
+            <li><a href="Mac.html#MacbookPro" class="block px-4 py-2 hover:bg-gray-100">Macbook Pro</a></li>
+          </ul> 
+        </li>
+
+        <li class="relative group">
+          <a class="hover:underline cursor-pointer" href="iPad.html">iPad</a>
+          <ul class="absolute left-0 mt-2 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
+            <li><a href="iPad.html#iPadPro" class="block px-4 py-2 hover:bg-gray-100">iPad Pro </a></li>
+            <li><a href="iPad.html#iPadAir" class="block px-4 py-2 hover:bg-gray-100">iPad Air</a></li>
+            <li><a href="iPad.html#iPadMini" class="block px-4 py-2 hover:bg-gray-100">iPad Mini</a></li>
+            <li><a href="iPad.html#iPadGen" class="block px-4 py-2 hover:bg-gray-100">iPad Gen</a></li>
+          </ul> 
+        </li>
+
+        <li class="group relative">
+          <a class="hover:underline cursor-pointer" href="iPhone.html">iPhone</a>
+          <ul class="absolute left-0 mt-2 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
+            <li><a href="iPhone.html#iPhone15" class="block px-4 py-2 hover:bg-gray-100">iPhone 15</a></li>
+            <li><a href="iPhone.html#iPhone14" class="block px-4 py-2 hover:bg-gray-100">iPhone 14</a></li>
+            <li><a href="iPhone.html#iPhone13" class="block px-4 py-2 hover:bg-gray-100">iPhone 13</a></li>
+            <li><a href="iPhone.html#iPhone12" class="block px-4 py-2 hover:bg-gray-100">iPhone 12</a></li>
+            <li><a href="iPhone.html#iPhone11" class="block px-4 py-2 hover:bg-gray-100">iPhone 11</a></li>
+          </ul>
+        </li>
+
+        <li class="group relative">
+          <a class="hover:underline cursor-pointer" href="Watch.html">Watch</a>
+          <ul class="absolute left-0 mt-2 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
+            <li><a href="Watch.html#WatchSeries" class="block px-4 py-2 hover:bg-gray-100">Apple Watch Series</a></li>
+            <li><a href="Watch.html#WatchSE" class="block px-4 py-2 hover:bg-gray-100">Apple Watch SE</a></li>
+            <li><a href="Watch.html#WatchUltra" class="block px-4 py-2 hover:bg-gray-100">Apple Watch Ultra</a></li>
+          </ul>
+        </li>
+
+        <li class="group relative">
+          <a class="hover:underline cursor-pointer" href="AirPods.html">AirPods</a>
+          <ul class="absolute left-0 mt-2 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
+            <li><a href="AirPods.html#AirPods" class="block px-4 py-2 hover:bg-gray-100">AirPods</a></li>
+            <li><a href="AirPods.html#AirPodsPro" class="block px-4 py-2 hover:bg-gray-100">AirPods Pro</a></li>
+            <li><a href="AirPods.html#AirPodsMax" class="block px-4 py-2 hover:bg-gray-100">AirPods Max</a></li>
+          </ul>
+        </li>
+        <li><a class="hover:underline" href="TV&Nha.html">TV &amp; Nhà</a></li>
+        <li><a class="hover:underline" href="Giaitri.html">Giải Trí</a></li>
+        <li><a class="hover:underline" href="Phukien.html">Phụ Kiện</a></li>
+        <li><a class="hover:underline" href="Hotro.html">Hỗ Trợ</a></li>
+      </ul>
+    </nav>
+
+    <!-- Tìm kiếm và đăng nhập -->
+    <div class="hidden md:flex items-center space-x-4 text-gray-700 ml-6">
+      <button 
+        aria-label="Search" 
+        class="hover:text-black" 
+        onclick="toggleSearchForm()"
+      >
+        <i class="fas fa-search"></i>
+      </button>
+      <div id="searchForm" class="hidden mt-4 w-full max-w-sm mx-auto">
+        <form class="flex items-center">
+          <input 
+            type="text" 
+            placeholder="Tìm kiếm sản phẩm..." 
+            class="w-full px-3 py-2 text-sm text-black focus:outline-none" 
+          />
+          <button type="submit" class="bg-black text-white px-3 py-2 text-sm hover:bg-gray-800">
+            Tìm
+          </button>
+        </form>
+      </div>
+      
+      <a href="dangnhap.html">
+          <button aria-label="User account" class="hover:text-black">
+            <i class="fas fa-user"></i>
+          </button>
+        </a>
+    </div>
+      </div>
+    <script>
+    function toggleSearchForm() {
+        const form = document.getElementById('searchForm');
+        form.classList.toggle('hidden');
+    }
+    </script>
+</header>
+    <br>
+   <hr>
+   <main>
+    <video
+        class="w-full h-auto"
+        src="Image/Apple TV+ Intro.mp4"
+        controls
+        autoplay
+        muted
+        playsinline
+    >
+    Trình duyệt không hỗ trợ video.
+    </video>
+    <br>
+      <section class="max-w-[1200px] mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6">Những bộ phim hấp dẫn.</h1>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Card 1 -->
+        <div class="rounded-2xl bg-[#FFD1DC] p-4">
+          <img src="Image/Avatar.jpg" alt="Avatar" class="mt-2 rounded-xl">
+        </div>
+
+        <!-- Card 2 -->
+        <div class="rounded-2xl bg-[#B5EAEA] p-4">
+          <img src="Image/Jumanji.jpg" alt="Jumanji" class="mt-2 rounded-xl">
+        </div>
+
+        <!-- Card 3 -->
+        <div class="rounded-2xl bg-[#FFEDC2] p-4">
+          <img src="Image/HomeAlone.jpg" alt="Home Alone" class="mt-2 rounded-xl">
+        </div>
+
+        <!-- Card 4 -->
+        <div class="rounded-2xl bg-[#D1CFE2] p-4">
+          <img src="Image/TheWicher.jpg" alt="The Witcher" class="mt-2 rounded-xl">
+        </div>
+
+        <!-- Card 5 -->
+        <div class="rounded-2xl bg-[#C2F784] p-4">
+          <img src="Image/Dora.jpg" alt="Dora" class="mt-2 rounded-xl">
+        </div>
+
+        <!-- Card 6 -->
+        <div class="rounded-2xl bg-[#FEC8D8] p-4">
+          <img src="Image/Inception.jpg" alt="Inception" class="mt-2 rounded-xl">
+        </div>
+
+        <!-- Card 7 -->
+        <div class="rounded-2xl bg-[#C5DFF8] p-4">
+          <img src="Image/Aladdin.jpg" alt="Aladdin" class="mt-2 rounded-xl">
+        </div>
+
+        <!-- Card 8 -->
+        <div class="rounded-2xl bg-[#FFE5B4] p-4">
+          <img src="Image/Moana.jpg" alt="Moana" class="mt-2 rounded-xl">
+        </div>
+        </div>
+      </section>
+      
+      <br>
+      <section class="max-w-[1200px] mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6">Tận hưởng những giai điệu trong bài nhạc mình thích.</h1>
+        <video
+        class="w-full h-auto"
+          src="Image/intromusic2.mp4"
+          controls
+          autoplay
+          muted
+          playsinline
+        >
+      </section>
+      <section class="px-4 pb-8 max-w-[1200px] mx-auto">
+        <h2 class="text-xl font-semibold text-gray-600 text-left mb-6">Những bài nhạc hot trend.</h2>
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 text-center">
+          <!-- Card 1 -->
+          <div class="flex justify-center">
+            <div class="w-full max-w-[200px] h-[220px] bg-white rounded-lg shadow-lg overflow-hidden">
+              <img src="/Image/Music/music1.jpg" alt="Music" class="w-full h-full object-cover">
+            </div>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="flex justify-center">
+            <div class="w-full max-w-[200px] h-[220px] bg-white rounded-lg shadow-lg overflow-hidden">
+              <img src="/Image/Music/music2.jpg" alt="Music" class="w-full h-full object-cover">
+            </div>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="relative w-full max-w-[200px] h-[220px] bg-white rounded-lg shadow-lg overflow-hidden">
+            <span class="absolute top-0 left-0 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded-br-lg z-10">
+              Mới ra mắt
+            </span>
+            <img src="/Image/Music/music3.jpg" alt="Music" class="w-full h-full object-cover">
+          </div>
+
+          <!-- Card 4 -->
+          <div class="flex justify-center">
+            <div class="w-full max-w-[200px] h-[220px] bg-white rounded-lg shadow-lg overflow-hidden">
+              <img src="/Image/Music/music4.jpg" alt="Music" class="w-full h-full object-cover">
+            </div>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="flex justify-center">
+            <div class="w-full max-w-[200px] h-[220px] bg-white rounded-lg shadow-lg overflow-hidden">
+              <img src="/Image/Music/music5.jpg" alt="Music" class="w-full h-full object-cover">
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <br>
+      <br>
+      <br>
+      <br>
+      <section class="max-w-[1200px] mx-auto px-4 py-8">
+        <h1 class="text-3xl font-bold mb-6">Giải trí không giới hạn với những trò chơi hấp dẫn.</h1>
+        <video
+        class="w-full h-auto"
+          src="Image/introgame.mp4"
+          controls
+          autoplay
+          muted
+          playsinline
+        >
+      </section>
+      <section class="px-4 pb-8 max-w-[1200px] mx-auto">
+        <h2 class="text-xl font-semibold text-gray-600 text-left mb-6">Những trò chơi hấp dẫn.</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <!-- Card 1 -->
+          <div class="relative rounded-2xl bg-[#FFD1DC] h-[300px] flex items-center justify-center p-4 shadow-md hover:shadow-lg transition">
+            <span class="absolute top-0 left-0 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded-br-lg z-10">Thịnh hành</span>
+            <img src="Image/game/game1.jpg" alt="game" class="h-full object-contain rounded-xl">
+          </div>
+
+          <!-- Card 2 -->
+          <div class="relative rounded-2xl bg-[#B5EAEA] h-[300px] flex items-center justify-center p-4 shadow-md hover:shadow-lg transition">
+            <img src="Image/game/game2.jpg" alt="game" class="h-full object-contain rounded-xl">
+          </div>
+
+          <!-- Card 3 -->
+          <div class="relative rounded-2xl bg-[#FFEDC2] h-[300px] flex items-center justify-center p-4 shadow-md hover:shadow-lg transition">
+            <span class="absolute top-0 left-0 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded-br-lg z-10">Mới ra mắt</span>
+            <img src="Image/game/game3.jpg" alt="game" class="h-full object-contain rounded-xl">
+          </div>
+
+          <!-- Card 4 -->
+          <div class="relative rounded-2xl bg-[#D1CFE2] h-[300px] flex items-center justify-center p-4 shadow-md hover:shadow-lg transition">
+            <img src="Image/game/game4.jpg" alt="game" class="h-full object-contain rounded-xl">
+          </div>
+        </div>
+      </section>
+      <br>
+      <br>
+      <br>
+   </main>
+   <footer class="bg-black text-white text-[15px] font-sans rounded-t-2xl">
+      <div class="max-w-[1200px] mx-auto px-4 py-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+        <div>
+          <h3 class="font-semibold mb-2">Sản phẩm</h3>
+          <ul class="space-y-1">
+            <li>
+              <a href="iPhone.html">Iphone</a>
+            </li>
+            <li>
+              <a href="Mac.html">IMac</a>
+            </li>
+            <li>
+              <a href="iPad.html">IPad</a>
+            </li>
+            <li>
+              <a href="Watch.html">Apple Watch</a>
+            </li>
+            <li>
+              <a href="AirPods.html">AirPods</a>
+            </li>
+            <li>
+              <a href="Phukien.html">Phụ Kiện</a>
+            </li>
+            <li>
+              <a href="TV&Nha.html">TV&Nha</a>
+            </li>
+            <li>
+              <a href="Giaitri.html">Giải trí</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-semibold mb-2">Thông tin liên hệ</h3>
+          <ul class="space-y-1">
+            <li>
+              <a href="">Chăm sóc khách hàng</a>
+            </li>
+            <li>
+              <a href="">Dịch vụ sửa chữa Trương Hiện Care</a>
+            </li>
+            <li>
+              <a href="">Khách hàng doanh nghiệp</a>
+            </li>
+            <li>
+              <a href="">Tuyển dụng</a>
+            </li>
+            <li>
+              <a href="">Tra cứu bảo hành</a>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <a href="">
+            <p class="font-semibold mb-2">Thanh toán miễn phí</p>
+          </a>
+          <a href="">
+            <p class="font-semibold mb-2">Hình thức vận chuyển</p>
+          </a>
+        </div>
+        <div>
+          <p class="font-semibold mb-1">Tổng đài</p>
+          <div class="bg-white text-black font-semibold rounded px-2 py-1 w-max mb-1 inline-block text-[14px]">
+            0376834541
+          </div>
+          <p class="text-[10px] mb-3">(Từ 8h30 - 21h30)</p>
+          <p class="font-semibold">Liên hệ với chúng tôi</p>
+        </div>
+      </div>
+      <div class="max-w-[1200px] mx-auto px-4 pb-4 text-[10px] text-center font-sans">
+        <p>
+          © 2025. CÔNG TY CỔ PHẦN XÂY DỰNG VÀ ĐẦU TƯ THƯƠNG MẠI TRƯƠNG HIỆN IT.
+        </p>
+        <p>
+          Địa chỉ: Số 87 Yên Xá, Phường Tân Triều, Quận Thanh Trì, Hà Nội.
+          Điện thoại: +84.376.345.41. Chủ trách nhiệm nội dung: <span class="font-semibold">Trương Công Hiện.</span>
+        </p>
+      </div>
+    </footer>
+      <button aria-label="Chat ngay" id="chatToggle" class="fixed bottom-6 right-6 bg-[#2a5f4d] text-white text-[14px] font-semibold rounded-md px-4 py-2 flex items-center space-x-2 shadow-md hover:bg-[#244d3f] transition" type="button">
+        <span>
+        CHAT NGAY
+        </span>
+      </button>
+
+      <div id="chatBox" class="fixed bottom-20 right-6 w-80 bg-white rounded shadow-lg border border-gray-200 hidden z-50">
+        <div class="bg-green-100 px-4 py-2 flex justify-between items-center rounded-t">
+          <span class="text-green-800 font-semibold">LIÊN HỆ ĐỂ ĐƯỢC TƯ VẤN</span>
+          <button id="chatClose" class="text-red-500 text-xl font-bold">–</button>
+        </div>
+        <div class="p-4 space-y-3">
+          <a href="tel:0376834541" class="flex items-center bg-gray-100 p-3 rounded hover:bg-gray-200">
+            <img src="Image/tel.png" class="w-6 h-6 mr-2" />
+            <span>Gọi 0376834541</span>
+          </a>
+          <a href="zalo.html" target="_blank" class="flex items-center bg-gray-100 p-3 rounded hover:bg-gray-200">
+            <img src="Image/zalo.png" class="w-6 h-6 mr-2" />
+            <span>Nhắn Zalo</span>
+          </a>
+          <a href="https://m.me/thanhhien110919" target="_blank" class="flex items-center bg-gray-100 p-3 rounded hover:bg-gray-200">
+            <img src="Image/message.png" class="w-6 h-6 mr-2" />
+            <span>Nhắn Facebook Messenger</span>
+          </a>
+        </div>
+      </div>
+      <script>
+              const toggleBtn = document.getElementById('chatToggle');
+              const chatBox = document.getElementById('chatBox');
+              const closeBtn = document.getElementById('chatClose');
+
+              toggleBtn.addEventListener('click', () => {
+                chatBox.classList.toggle('hidden');
+              });
+
+              closeBtn.addEventListener('click', () => {
+                chatBox.classList.add('hidden');
+              });
+      </script>
+</body>
+</html>
