@@ -141,7 +141,7 @@
         </form>
       </div>
       
-      <a href="dangnhap.html">
+      <a href="profile.html">
           <button aria-label="User account" class="hover:text-black">
             <i class="fas fa-user"></i>
           </button>
@@ -212,7 +212,6 @@
             <button id="btnAdd" class="px-4 py-2 rounded-full bg-gray-100 text-lg text-gray-800 font-medium hover:bg-red-200 transition">Thêm</button>
             <button id="btnOpenEdit" class="px-4 py-2 rounded-full bg-gray-100 text-lg text-gray-800 font-medium hover:bg-yellow-200 transition">Sửa</button>
             <button id="btnOpenDelete" class="px-4 py-2 rounded-full bg-gray-100 text-lg text-gray-800 font-medium hover:bg-green-200 transition">Xóa</button>
-            <button id="btnReloadProducts" class="px-4 py-2 rounded-full bg-gray-100 text-lg text-gray-800 font-medium hover:bg-pink-200 transition">Cập nhật</button>
           </div>
         </div>
 
@@ -374,6 +373,23 @@
         <div id="MacBookProList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center text-center"></div>
         <hr>
         <br>
+
+        <!-- Modal chi tiết sản phẩm -->
+        <div id="productModal" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+        <div class="bg-white rounded-xl p-6 w-[90%] max-w-[600px] relative text-center">
+          <span class="absolute top-3 right-4 text-3xl cursor-pointer" onclick="closeModal()">&times;</span>
+          <h2 id="modalName" class="text-xl font-bold mb-3"></h2>
+          <img id="modalImage" src="" alt="Sản phẩm" class="w-[250px] mx-auto mb-4 rounded-lg">
+          <p id="modalPrice" class="text-lg font-semibold text-red-600 mb-2"></p>
+          <p id="modalDescription" class="text-sm text-gray-700 leading-relaxed mb-4 text-left"></p>
+          <button id="addToCartBtn" data-product-id=""
+            onclick="addToCart()"
+            class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+            Thêm vào giỏ hàng
+          </button>
+        </div>
+      </div>
+
         </section>
         
         <hr class="my-8 border-t border-gray-300" />
@@ -616,7 +632,8 @@
             const select = document.getElementById("productSelect");
             select.innerHTML = `<option value="">-- Chọn sản phẩm --</option>`;
 
-            data.products.forEach(p => {
+            data.products.filter(p => p.category.toLowerCase() === 'macbook')
+            .forEach(p => {
               const option = document.createElement("option");
               option.value = p.id;
               option.textContent = p.name;
@@ -720,7 +737,8 @@
             productsForDelete = data.products || [];
 
             deleteSelect.innerHTML = '<option value="">-- Chọn sản phẩm --</option>';
-            productsForDelete.forEach(p => {
+            productsForDelete.filter(p => p.category.toLowerCase() === 'macbook')
+            .forEach(p => {
               const option = document.createElement('option');
               option.value = p.id;
               option.textContent = p.name;
@@ -797,6 +815,23 @@
       </script>
 
       <script>
+        const allProducts = {};
+
+        function openModalWithProduct(product, backendURL) {
+          document.getElementById("modalName").textContent = product.name;
+          document.getElementById("modalImage").src = `${backendURL}/${product.image}`;
+          document.getElementById("modalImage").alt = product.name;
+          document.getElementById("modalPrice").textContent = `Giá: ${product.price.toLocaleString('vi-VN')}₫`;
+          document.getElementById("modalDescription").innerHTML =
+            `<strong>Mô tả:</strong> ${product.description || 'Chưa có mô tả.'}`;
+          document.getElementById('addToCartBtn').dataset.productId = product.id;
+          document.getElementById("productModal").style.display = "flex";
+        }
+
+        function closeModal() {
+          document.getElementById("productModal").style.display = "none";
+        }
+
         async function loadProductList() {
           try {
             const backendURL = 'http://localhost/Web%20Apple/backend';
@@ -818,45 +853,75 @@
               return;
             }
 
-            data.products.forEach(product => {
-              console.log(product); // debug dữ liệu
-              const imageUrl = `${backendURL}/${product.image}`;
-              // <span class="absolute top-0 left-0 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded-br-lg z-10">Hết Hàng</span>
+            // Lưu sản phẩm vào allProducts theo id
+            data.products.forEach(p => allProducts[p.id] = p);
 
-              const productHtml = `
-                <div class="relative rounded-2xl bg-[#c2e0f9] p-4 cursor-pointer">
-                  <img src="${imageUrl}" alt="${product.name}" class="mt-2 rounded-xl" />
-                  <h3 class="font-semibold text-sm mb-1">${product.name}</h3>
+            data.products.filter(p => p.category.toLowerCase() === 'macbook')
+              .forEach(product => {
+                const imageUrl = `${backendURL}/${product.image}`;
+                const productHtml = `
+                <div class="relative rounded-2xl bg-[#c2e0f9] p-4 cursor-pointer group">
+                  ${product.stock == 0
+                    ? `<span class="absolute top-0 left-0 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded-br-lg z-10">Hết Hàng</span>` : ''}
+                  <img src="${imageUrl}" data-id="${product.id}" alt="${product.name}" class="mt-2 rounded-xl hover:scale-105 transition-transform duration-200" />
+                  <h3 class="font-semibold text-sm mt-2 mb-1">${product.name}</h3>
                   <p class="text-red-600 text-lg font-bold">${product.price.toLocaleString('vi-VN')}₫</p>
-                  ${product.discount_price > 0 ? `<p class="line-through text-gray-500 text-sm">${product.discount_price.toLocaleString('vi-VN')}₫</p>` : ''}
+                  ${product.discount_price > 0
+                    ? `<p class="line-through text-gray-500 text-sm">${product.discount_price.toLocaleString('vi-VN')}₫</p>` : ''}
+                  <p class="text-sm text-gray-600">Tồn kho: ${product.stock}</p>
                 </div>
-              `;
-
-              // Dùng subcategory để phân loại
-              const subcategory = product.subcategory.toLowerCase();
-              const container = subcategory.includes('air') ? airContainer : proContainer;
-              container.insertAdjacentHTML('beforeend', productHtml);
-            });
-
-            // Gán sự kiện click cho các card
-            document.querySelectorAll('#MacBookAirList > div, #MacBookProList > div').forEach((card, index) => {
-              card.addEventListener('click', () => {
-                let filteredProducts = data.products.filter(p =>
-                  card.parentElement.id === 'MacBookProList'
-                    ? p.subcategory.toLowerCase().includes('pro')
-                    : p.subcategory.toLowerCase().includes('air')
-                );
-                const product = filteredProducts[index];
-                openModalWithProduct(product, backendURL);
+              `;  
+                const subcategory = product.subcategory.toLowerCase();
+                const container = subcategory.includes('air') ? airContainer : proContainer;
+                container.insertAdjacentHTML('beforeend', productHtml);
               });
+
+            // Gán sự kiện click vào ảnh trong mỗi card
+            document.querySelectorAll('#MacBookAirList img, #MacBookProList img').forEach((img) => {
+            img.addEventListener('click', (event) => {
+              event.stopPropagation();
+              const id = img.dataset.id;
+              const product = allProducts[id];
+              if (product) {
+                openModalWithProduct(product, backendURL);
+              }
             });
+          });
+
 
           } catch (error) {
             alert(error.message);
             console.error(error);
           }
         }
+
         window.addEventListener('DOMContentLoaded', loadProductList);
+      </script>
+
+      <script>
+        function addToCart() {
+          const btn = document.getElementById('addToCartBtn');
+          const productId = btn.dataset.productId;
+          const quantity = 1;
+
+          fetch('../backend/add_to_cart.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              product_id: productId,
+              quantity: quantity
+            })
+          })
+          .then(res => res.json())
+          .then(data => {
+            alert(data.message);
+            if (data.success) closeModal();
+          })
+          .catch(err => {
+            console.error("Lỗi:", err);
+            alert("Đã xảy ra lỗi khi thêm vào giỏ hàng.");
+          });
+        }
       </script>
     </body>
 </html>

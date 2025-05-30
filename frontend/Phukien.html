@@ -114,7 +114,7 @@
         </form>
       </div>
       
-      <a href="dangnhap.html">
+      <a href="profile.html">
           <button aria-label="User account" class="hover:text-black">
             <i class="fas fa-user"></i>
           </button>
@@ -138,123 +138,127 @@
     </div>
     <br>
     <br>
+
     <section class="max-w-[1200px] mx-auto px-4 py-8">
-      <h2 class="text-4xl font-semibold text-center text-gray-1000 mb-4">
-        Tìm phụ kiện mong muốn.
-      </h2>
-      <div class="flex justify-center">
-        <div class="relative w-full max-w-xl">
-          <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
-            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 3.5a7.5 7.5 0 0013.15 13.15z" />
-            </svg>
-          </span>
-          <input type="text" placeholder="Hãy cho tôi biết bạn cần gì?"
-                class="w-full border border-gray-300 rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent">
-        </div>
+  <h2 class="text-4xl font-semibold text-center text-gray-1000 mb-4">
+    Tìm phụ kiện mong muốn.
+  </h2>
+
+  <!-- Search -->
+  <div class="flex justify-center mb-4">
+    <div class="relative w-full max-w-xl">
+      <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M21 21l-4.35-4.35m0 0A7.5 7.5 0 103.5 3.5a7.5 7.5 0 0013.15 13.15z" />
+        </svg>
+      </span>
+      <input type="text" placeholder="Hãy cho tôi biết bạn cần gì?"
+            class="w-full border border-gray-300 rounded-lg pl-10 pr-4 py-3 focus:outline-none focus:ring-2 focus:ring-pink-400 focus:border-transparent">
+    </div>
+  </div>
+
+  <!-- Add Button -->
+  <div class="flex justify-end mb-4">
+    <button id="btnOpenAdd" class="bg-pink-500 text-white px-4 py-2 rounded-lg hover:bg-pink-600">
+      + Thêm phụ kiện
+    </button>
+  </div>
+
+<div id="accessoryList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+
+</section>  
+    <div id="addproductModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+      <div class="bg-white p-6 rounded-xl w-full max-w-md">
+        <h3 class="text-xl font-semibold mb-4" id="modalTitle">Thêm phụ kiện</h3>
+        
+        <form id="productForm" class="space-y-5" enctype="multipart/form-data">
+          <input type="hidden" id="editIndex" name="editIndex" value="">
+
+          <!-- Danh mục -->
+          <div>
+            <label for="category" class="block font-medium">Danh mục</label>
+            <input type="text" id="category" name="category" value="Phụ kiện" readonly
+              class="w-full border px-3 py-2 rounded bg-gray-100 cursor-not-allowed" />
+          </div>
+
+          <!-- Loại -->
+          <div>
+            <label for="subcategory" class="block font-medium mb-1">Loại phụ kiện<span class="text-red-600">*</span></label>
+            <select id="subcategory" name="subcategory"
+              class="w-full border border-gray-300 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-green-600"
+              required>
+              <option value="">Chọn loại</option>
+              <option value="Macbook Air">Cáp sạc</option>
+              <option value="Macbook Pro">Ốp lưng</option>
+              <option value="Macbook Pro">Apple Pencil</option>
+              <option value="Macbook Pro">Cáp chuyển đổi</option>
+              <option value="Macbook Pro">Dây đồng hồ</option>
+            </select>
+          </div>
+
+          <!-- Tên sản phẩm -->
+          <div>
+            <label for="name" class="block font-medium mb-1">Tên sản phẩm <span class="text-red-600">*</span></label>
+            <input type="text" id="name" name="name" required
+              class="w-full border border-gray-300 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-green-600" />
+          </div>
+
+          <!-- Mô tả -->
+          <div>
+            <label for="description" class="block font-medium mb-1">Mô tả</label>
+            <textarea id="description" name="description" rows="3"
+              class="w-full border border-gray-300 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-green-600"></textarea>
+          </div>
+
+          <!-- Giá -->
+          <div class="grid grid-cols-2 gap-4">
+            <div>
+              <label for="price" class="block font-medium mb-1">Giá gốc <span class="text-red-600">*</span></label>
+              <input type="number" id="price" name="price" step="0.01" required
+                class="w-full border border-gray-300 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-green-600" />
+            </div>
+            <div>
+              <label for="discount_price" class="block font-medium mb-1">Giá khuyến mãi</label>
+              <input type="number" id="discount_price" name="discount_price" step="0.01"
+                class="w-full border border-gray-300 px-3 py-2 rounded focus:outline-none focus:ring-2 focus:ring-green-600" />
+            </div>
+          </div>
+
+          <!-- Ảnh sản phẩm -->
+          <div>
+            <label for="productImage" class="block font-medium mb-1">Ảnh sản phẩm <span class="text-red-600">*</span></label>
+            <input type="file" id="productImage" name="productImage" accept="image/*" required
+              class="w-full border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-green-600" />
+          </div>
+          <!-- Buttons -->
+          <div class="pt-4 flex justify-end space-x-3">
+            <button type="submit"
+              class="bg-[#2a5f4d] hover:bg-[#244d3f] text-white px-5 py-2 rounded">Lưu</button>
+            <button type="button" id="btnCloseForm"
+              class="border border-gray-300 px-5 py-2 rounded hover:bg-gray-200">Đóng</button>
+          </div>
+        </form>
       </div>
-      <br>
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center text-center">
-          <!-- Card 1 -->
-            <div class="relative rounded-2xl bg-black/90 p-4 h-full flex flex-col justify-between min-h-[320px]">
-            <img src="Image/phụ kiện/pencil_pro.png" alt="phụ kiện" class="mt-2 rounded-xl">
-            <h3 class="font-semibold text-sm mb-1 text-white justify-center">Apple Pencil (USB-C)</h3>
-            <p class="text-red-600 text-lg font-bold">2.090.000₫</p>
-            <p class="line-through text-gray-500 text-sm">2.190.000₫</p>
-            </div> 
+    </div>
 
-            <!-- Card 2 -->
-            <div class="relative rounded-2xl bg-black/90 p-4 h-full flex flex-col justify-between min-h-[320px]">
-            <img src="Image/phụ kiện/sạc apple.png" alt="phụ kiện" class="mt-2 rounded-xl">
-            <h3 class="font-semibold text-sm mb-1 text-white justify-center">Sạc Apple USB-C 20W </h3>
-            <p class="text-red-600 text-lg font-bold">550.000₫</p>
-            <p class="line-through text-gray-500 text-sm">550.000₫</p>
-            </div>  
+    <!-- Modal chi tiết sản phẩm -->
+    <div id="productModal" class="fixed top-0 left-0 w-full h-full bg-black bg-opacity-50 flex items-center justify-center hidden z-50">
+      <div class="bg-white rounded-xl p-6 w-[90%] max-w-[600px] relative text-center">
+        <span class="absolute top-3 right-4 text-3xl cursor-pointer" onclick="closeModal()">&times;</span>
+        <h2 id="modalName" class="text-xl font-bold mb-3"></h2>
+        <img id="modalImage" src="" alt="Sản phẩm" class="w-[250px] mx-auto mb-4 rounded-lg">
+        <p id="modalPrice" class="text-lg font-semibold text-red-600 mb-2"></p>
+        <p id="modalDescription" class="text-sm text-gray-700 leading-relaxed mb-4 text-left"></p>
+        <button id="addToCartBtn" data-product-id=""
+          onclick="addToCart()"
+          class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
+          Thêm vào giỏ hàng
+        </button>
+      </div>
+    </div>
 
-            <!-- Card 3 -->
-            <div class="relative rounded-2xl bg-black/90 p-4 h-full flex flex-col justify-between min-h-[320px]">
-            <img src="Image/phụ kiện/sạc type C.png" alt="phụ kiện" class="mt-2 rounded-xl">
-            <h3 class="font-semibold text-sm mb-1 text-white justify-center">Cáp sạc Type C - Type C 1m</h3>
-            <p class="text-red-600 text-lg font-bold">550.000₫</p>
-            <p class="line-through text-gray-500 text-sm">550.000₫</p>
-            </div> 
-
-            <!-- Card 4 -->
-            <div class="relative rounded-2xl bg-black/90 p-4 h-full flex flex-col justify-between min-h-[320px]">
-            <img src="Image/phụ kiện/baoda.png" alt="phụ kiện" class="mt-2 rounded-xl">
-            <h3 class="font-semibold text-sm mb-1 text-white justify-center">Bao da Smart Folio cho iPad Pro M4 11 inch</h3>
-            <p class="text-red-600 text-lg font-bold">2.290.000₫</p>
-            <p class="line-through text-gray-500 text-sm">2.290.000₫</p>
-            </div> 
-
-            <!-- Card 5 -->
-            <div class="relative rounded-2xl bg-black/90 p-4 h-full flex flex-col justify-between min-h-[320px]">
-            <img src="Image/phụ kiện/ốp nhựa.png" alt="phụ kiện" class="mt-2 rounded-xl">
-            <h3 class="font-semibold text-sm mb-1 text-white justify-center">ỐP lưng MagSafe iPhone 16 Pro Max nhựa trong Apple</h3>
-            <p class="text-red-600 text-lg font-bold">1.430.000₫</p>
-            <p class="line-through text-gray-500 text-sm">1.690.000₫</p>
-            </div> 
-
-            <!-- Card 6 -->
-            <div class="relative rounded-2xl bg-black/90 p-4 h-full flex flex-col justify-between min-h-[320px]">
-            <img src="Image/phụ kiện/sạc apple type c.png" alt="phụ kiện" class="mt-2 rounded-xl">
-            <h3 class="font-semibold text-sm mb-1 text-white justify-center">Sạc Apple USB-C 70W</h3>
-            <p class="text-red-600 text-lg font-bold">1.490.000₫</p>
-            <p class="line-through text-gray-500 text-sm">1.550.000₫</p>
-            </div>  
-
-            <!-- Card 7 -->
-            <div class="relative rounded-2xl bg-black/90 p-4 h-full flex flex-col justify-between min-h-[320px]">
-            <img src="Image/phụ kiện/ốp silicon.png" alt="phụ kiện" class="mt-2 rounded-xl">
-            <h3 class="font-semibold text-sm mb-1 text-white justify-center">ỐP lưng MagSafe iPhone 16 Pro Max Silicon Apple</h3>
-            <p class="text-red-600 text-lg font-bold">1.430.000₫</p>
-            <p class="line-through text-gray-500 text-sm">1.760.000₫</p>
-            </div> 
-
-            <!-- Card 8 -->
-            <div class="relative rounded-2xl bg-black/90 p-4 h-full flex flex-col justify-between min-h-[320px]">
-            <img src="Image/phụ kiện/keyboard.png" alt="phụ kiện" class="mt-2 rounded-xl">
-            <h3 class="font-semibold text-sm mb-1 text-white justify-center">Magic keyboard cho iPad Air M2 11 inch</h3>
-            <p class="text-red-600 text-lg font-bold">7.790.000₫</p>
-            <p class="line-through text-gray-500 text-sm">8.290.000₫</p>
-            </div> 
-
-            <!-- Card 9 -->
-            <div class="relative rounded-2xl bg-black/90 p-4 h-full flex flex-col justify-between min-h-[320px]">
-            <img src="Image/phụ kiện/cáp chuyển đổi.png" alt="phụ kiện" class="mt-2 rounded-xl">
-            <h3 class="font-semibold text-sm mb-1 text-white justify-center">Cáp chuyển đổi USB-C sang Lightning</h3>
-            <p class="text-red-600 text-lg font-bold">840.000₫</p>
-            <p class="line-through text-gray-500 text-sm">940.000₫</p>
-            </div> 
-
-            <!-- Card 10 -->
-            <div class="relative rounded-2xl bg-black/90 p-4 h-full flex flex-col justify-between min-h-[320px]">
-            <img src="Image/phụ kiện/Airtag.png" alt="phụ kiện" class="mt-2 rounded-xl">
-            <h3 class="font-semibold text-sm mb-1 text-white justify-center">Airtag</h3>
-            <p class="text-red-600 text-lg font-bold">800.000₫</p>
-            <p class="line-through text-gray-500 text-sm">900.000₫</p>
-            </div>  
-
-            <!-- Card 11 -->
-            <div class="relative rounded-2xl bg-black/90 p-4 h-full flex flex-col justify-between min-h-[320px]">
-            <img src="Image/phụ kiện/ví da magsafe.png" alt="phụ kiện" class="mt-2 rounded-xl">
-            <h3 class="font-semibold text-sm mb-1 text-white justify-center">Ví da MagSafe Apple vải tinh dệt</h3>
-            <p class="text-red-600 text-lg font-bold">1.690.000₫</p>
-            <p class="line-through text-gray-500 text-sm">1.760.000₫</p>
-            </div> 
-
-            <!-- Card 12 -->
-            <div class="relative rounded-2xl bg-black/90 p-4 h-full flex flex-col justify-between min-h-[320px]">
-            <img src="Image/phụ kiện/dây vải.png" alt="phụ kiện" class="mt-2 rounded-xl">
-            <h3 class="font-semibold text-sm mb-1 text-white justify-center">Dây vải Apple Watch 46 mm</h3>
-            <p class="text-red-600 text-lg font-bold">1.390.000₫</p>
-            <p class="line-through text-gray-500 text-sm">1.690.000₫</p>
-            </div> 
-        </div>
     </section>
-
-  </section>
         <hr class="my-8 border-t border-gray-300" />
         <section class="max-w-[1200px] mx-auto px-4 py-8">
         <h2 class="text-2xl font-bold mb-4">Phụ kiện chính hãng là gì?</h2>
@@ -357,7 +361,7 @@
         <span>
         CHAT NGAY
         </span>
-      </button>
+      </button> 
 
       <div id="chatBox" class="fixed bottom-20 right-6 w-80 bg-white rounded shadow-lg border border-gray-200 hidden z-50">
         <div class="bg-green-100 px-4 py-2 flex justify-between items-center rounded-t">
@@ -392,5 +396,365 @@
                 chatBox.classList.add('hidden');
               });
       </script>
-</body>
+      <!-- Modal Sửa sản phẩm -->
+      <div id="editProductModal" class="hidden fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded shadow-lg w-[400px] max-w-full">
+          <h3 class="text-xl font-semibold mb-4">Sửa sản phẩm</h3>
+
+          <form id="editProductForm" class="space-y-4" enctype="multipart/form-data">
+            <input type="hidden" id="editProductId" name="productId" />
+
+            <label for="editName" class="block font-medium">Tên sản phẩm *</label>
+            <input type="text" id="editName" name="name" required class="w-full border px-3 py-2 rounded" />
+
+            <label for="editPrice" class="block font-medium">Giá gốc *</label>
+            <input type="number" id="editPrice" name="price" step="0.01" required class="w-full border px-3 py-2 rounded" />
+
+            <label for="editDiscountPrice" class="block font-medium">Giá khuyến mại</label>
+            <input type="number" id="editDiscountPrice" name="discount_price" step="0.01" class="w-full border px-3 py-2 rounded" />
+
+            <label for="editDescription" class="block font-medium">Mô tả</label>
+            <textarea id="editDescription" name="description" class="w-full border px-3 py-2 rounded"></textarea>
+
+            <div class="pt-4 flex justify-end space-x-2">
+              <button type="button" id="btnSaveEdit" class="bg-[#2a5f4d] text-white px-4 py-2 rounded hover:bg-[#244d3f]">Lưu</button>
+              <button type="button" id="btnCloseEditForm" class="px-4 py-2 border rounded hover:bg-gray-200">Đóng</button>
+            </div>
+
+            <div id="confirmEditSection" class="hidden mt-4 bg-red-100 p-4 rounded text-red-800">
+              <p id="confirmEditText" class="mb-3 font-semibold">Bạn có chắc chắn muốn lưu thay đổi không?</p>
+              <button type="button" id="btnConfirmEditYes" class="bg-red-600 text-white px-4 py-1 rounded hover:bg-red-700">Có</button>
+              <button type="button" id="btnConfirmEditNo" class="border border-red-200 text-red-700 px-4 py-1 rounded hover:bg-red-200">Không</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+
+      <script>
+        const backendBaseURL = "http://localhost/Web%20Apple/backend";
+
+        // --- Modal Thêm sản phẩm ---
+        const addModal = document.getElementById("addproductModal");
+        const btnOpenAdd = document.getElementById("btnOpenAdd");
+        const btnCloseAdd = document.getElementById("btnCloseForm");
+        const addForm = document.getElementById("productForm");
+
+        btnOpenAdd.addEventListener("click", () => {
+          addForm.reset();
+          addModal.classList.remove("hidden");
+        });
+
+        btnCloseAdd.addEventListener("click", () => {
+          addModal.classList.add("hidden");
+        });
+
+        addForm.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          const formData = new FormData(addForm);
+
+          try {
+            const response = await fetch(`${backendBaseURL}/add_product.php`, {
+              method: "POST",
+              body: formData,
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+              alert("Thêm phụ kiện thành công!");
+              addModal.classList.add("hidden");
+              addForm.reset();
+              loadAccessories();
+            } else {
+              alert("Lỗi khi thêm phụ kiện: " + (result.message || "Không rõ lỗi"));
+            }
+          } catch (error) {
+            console.error("Lỗi khi gửi form:", error);
+            alert("Lỗi kết nối đến máy chủ, vui lòng thử lại.");
+          }
+        });
+
+        // --- Modal Sửa sản phẩm ---
+        const editModal = document.getElementById("editProductModal");
+        const editForm = document.getElementById("editProductForm");
+        const btnSaveEdit = document.getElementById("btnSaveEdit");
+        const btnCloseEditForm = document.getElementById("btnCloseEditForm");
+        const confirmSection = document.getElementById("confirmEditSection");
+        const btnConfirmEditYes = document.getElementById("btnConfirmEditYes");
+        const btnConfirmEditNo = document.getElementById("btnConfirmEditNo");
+
+        let editProductPayload = null;
+
+        function openEditModal(product) {
+          document.getElementById("editProductId").value = product.id || "";
+          document.getElementById("editName").value = product.name || "";
+          document.getElementById("editPrice").value = product.price || "";
+          document.getElementById("editDiscountPrice").value = product.discount_price || "";
+          document.getElementById("editDescription").value = product.description || "";
+
+          confirmSection.classList.add("hidden");
+          editModal.classList.remove("hidden");
+          editProductPayload = null;
+        }
+
+        btnCloseEditForm.addEventListener("click", () => {
+          editModal.classList.add("hidden");
+          confirmSection.classList.add("hidden");
+          editProductPayload = null;
+        });
+
+        btnSaveEdit.addEventListener("click", () => {
+          const productId = document.getElementById("editProductId").value.trim();
+          const name = document.getElementById("editName").value.trim();
+          const price = parseFloat(document.getElementById("editPrice").value);
+          const discount_price = parseFloat(document.getElementById("editDiscountPrice").value) || 0;
+          const description = document.getElementById("editDescription").value.trim();
+
+          if (!productId || !name || isNaN(price)) {
+            alert("Vui lòng điền đầy đủ thông tin sản phẩm hợp lệ.");
+            return;
+          }
+
+          editProductPayload = { productId, name, price, discount_price, description };
+          confirmSection.classList.remove("hidden");
+        });
+
+        btnConfirmEditNo.addEventListener("click", () => {
+          confirmSection.classList.add("hidden");
+          editProductPayload = null;
+        });
+
+        btnConfirmEditYes.addEventListener("click", async () => {
+          if (!editProductPayload) return;
+
+          try {
+            const response = await fetch(`${backendBaseURL}/update_product.php`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify(editProductPayload),
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+              alert("Cập nhật sản phẩm thành công!");
+              editModal.classList.add("hidden");
+              editForm.reset();
+              loadAccessories();
+            } else {
+              alert("Cập nhật thất bại: " + (result.message || "Không rõ lỗi"));
+            }
+          } catch (error) {
+            console.error("Lỗi khi cập nhật sản phẩm:", error);
+            alert("Lỗi kết nối máy chủ, vui lòng thử lại.");
+          } finally {
+            confirmSection.classList.add("hidden");
+            editProductPayload = null;
+          }
+        });
+
+        // --- Xóa sản phẩm ---
+        async function deleteProduct(productId, productName) {
+          if (confirm(`Bạn có chắc chắn muốn xóa sản phẩm "${productName}" không?`)) {
+            try {
+              const response = await fetch(`${backendBaseURL}/delete_product.php`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id: parseInt(productId) }),
+              });
+
+              const result = await response.json();
+              if (result.success) {
+                alert("Xóa thành công.");
+                loadAccessories();
+              } else {
+                alert("Lỗi xóa: " + (result.message || "Không rõ lỗi."));
+              }
+            } catch (error) {
+              console.error("Lỗi khi gọi API xóa:", error);
+              alert("Lỗi kết nối đến máy chủ.");
+            }
+          }
+        }
+
+        function openAccessoryModal(product) {
+        // Gán dữ liệu vào modal
+        document.getElementById("modalName").textContent = product.name || "";
+        document.getElementById("modalImage").src = product.image || "";
+        document.getElementById("modalImage").alt = product.name || "Sản phẩm";
+        document.getElementById('addToCartBtn').dataset.productId = product.id;
+        
+        if (product.discount_price > 0) {
+          // Nếu có giá giảm thì hiển thị giá giảm, giá gốc gạch ngang (nếu muốn)
+          document.getElementById("modalPrice").innerHTML = `
+            <span class="text-red-600 font-bold">${Number(product.discount_price).toLocaleString("vi-VN")}₫</span>
+            <span class="line-through text-gray-500 ml-2">${Number(product.price).toLocaleString("vi-VN")}₫</span>
+          `;
+        } else {
+          document.getElementById("modalPrice").textContent = Number(product.price).toLocaleString("vi-VN") + "₫";
+        }
+        document.getElementById("modalDescription").innerHTML =
+            `<strong>Mô tả:</strong> ${product.description || 'Chưa có mô tả.'}`;
+        // Hiển thị modal
+        document.getElementById("productModal").classList.remove("hidden");
+      }
+      function closeModal() {
+        document.getElementById("productModal").classList.add("hidden");
+      }
+        // --- Load danh sách phụ kiện ---
+        async function loadAccessories() {
+          try {
+            const res = await fetch(`${backendBaseURL}/get_product.php`);
+            if (!res.ok) throw new Error("Lỗi khi tải dữ liệu sản phẩm");
+
+            const data = await res.json();
+            if (!data.success) throw new Error("Backend trả về lỗi: " + (data.message || ""));
+
+            // Lọc sản phẩm thuộc category "Phụ kiện"
+            const accessories = data.products.filter(
+              (p) => p.category.toLowerCase() === "phụ kiện"
+            );
+
+            const container = document.getElementById("accessoryList");
+            container.innerHTML = "";
+
+            if (accessories.length === 0) {
+              container.innerHTML = "<p>Chưa có phụ kiện nào.</p>";
+              return;
+            }
+
+            accessories.forEach((product) => {
+              const discountHtml =
+                product.discount_price > 0
+                  ? `<p class="text-red-600 text-lg font-bold">${Number(
+                      product.discount_price
+                    ).toLocaleString("vi-VN")}₫</p>
+                    <p class="line-through text-yellow-500 text-sm">${Number(
+                      product.price
+                    ).toLocaleString("vi-VN")}₫</p>`
+                  : `<p class="text-red-600 text-lg font-bold">${Number(
+                      product.price
+                    ).toLocaleString("vi-VN")}₫</p>`;
+
+              const productHtml = `
+                <div
+                  class="relative rounded-2xl bg-black p-4 cursor-pointer flex flex-col items-center text-center"
+                >
+                  <img
+                    src="${backendBaseURL}/${product.image}"
+                    alt="${product.name}"
+                    class="mt-2 rounded-xl max-h-40 object-contain product-image over:scale-105 transition-transform duration-200"
+                    data-id="${product.id}"
+                    data-name="${product.name}"
+                    data-price="${product.price}"
+                    data-discount_price="${product.discount_price}"
+                    data-description="${product.description || ""}"
+                    data-category="${product.category}"
+                  />
+                  <h3 class="font-semibold text-sm mb-1 text-white">${product.name}</h3>
+                  ${discountHtml}
+                  <div class="mt-3 flex gap-2">
+                    <button
+                      class="edit-btn bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm"
+                      data-id="${product.id}"
+                      data-name="${product.name}"
+                      data-price="${product.price}"
+                      data-discount_price="${product.discount_price}"
+                      data-description="${product.description || ""}"
+                      data-category="${product.category}"
+                    >
+                      Sửa
+                    </button>
+                    <button
+                      class="delete-btn bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
+                      data-id="${product.id}"
+                      data-name="${product.name}"
+                    >
+                      Xóa
+                    </button>
+                  </div>
+                </div>
+              `;
+
+              container.insertAdjacentHTML("beforeend", productHtml);
+            });
+
+            // Gắn sự kiện click cho ảnh sản phẩm - mở modal chi tiết nếu có (bạn tự implement hàm openAccessoryModal)
+            document.querySelectorAll(".product-image").forEach((img) => {
+              img.addEventListener("click", (event) => {
+                event.stopPropagation();
+                const product = {
+                  id: img.dataset.id,
+                  name: img.dataset.name,
+                  price: parseFloat(img.dataset.price),
+                  discount_price: parseFloat(img.dataset.discount_price),
+                  description: img.dataset.description,
+                  category: img.dataset.category,
+                  image: img.src,
+                };
+                if (typeof openAccessoryModal === "function") {
+                  openAccessoryModal(product, backendBaseURL);
+                }
+              });
+            });
+
+            // Gắn sự kiện nút Sửa
+            document.querySelectorAll(".edit-btn").forEach((button) => {
+              button.addEventListener("click", () => {
+                const product = {
+                  id: button.dataset.id,
+                  name: button.dataset.name,
+                  price: button.dataset.price,
+                  discount_price: button.dataset.discount_price,
+                  description: button.dataset.description,
+                  category: button.dataset.category,
+                };
+                openEditModal(product);
+              });
+            });
+
+            // Gắn sự kiện nút Xóa
+            document.querySelectorAll(".delete-btn").forEach((button) => {
+              button.addEventListener("click", () => {
+                const productId = button.getAttribute("data-id");
+                const productName = button.getAttribute("data-name");
+                deleteProduct(productId, productName);
+              });
+            });
+          } catch (error) {
+            console.error(error);
+            alert("Lỗi tải phụ kiện, vui lòng thử lại.");
+          }
+        }
+
+        window.addEventListener("DOMContentLoaded", loadAccessories);
+      </script>
+
+      <script>
+        function addToCart() {
+          const btn = document.getElementById('addToCartBtn');
+          const productId = btn.dataset.productId;
+          const quantity = 1;
+
+          fetch('../backend/add_to_cart.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              product_id: productId,
+              quantity: quantity
+            })
+          })
+          .then(res => res.json())
+          .then(data => {
+            alert(data.message);
+            if (data.success) closeModal();
+          })
+          .catch(err => {
+            console.error("Lỗi:", err);
+            alert("Đã xảy ra lỗi khi thêm vào giỏ hàng.");
+          });
+        }
+      </script>
+  </body>
 </html>

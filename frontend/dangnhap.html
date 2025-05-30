@@ -21,15 +21,17 @@
     }
   </style>
 </head>
-<body class="flex items-center justify-center px-4">
-  <div class="bg-white bg-opacity-90 backdrop-blur-md max-w-md w-full rounded-3xl shadow-2xl p-10">
+<body class="flex items-center bg-gradient-to-br from-black to-gray-900 justify-center px-4">
+  <video autoplay loop muted playsinline
+    class="fixed top-0 left-0 w-full h-full object-cover z-[-1]">
+    <source src="Image/video_nen.mp4" type="video/mp4" />
+  </video>
+  <div class="w-full max-w-md bg-white/5 backdrop-blur-md rounded-3xl p-10 shadow-lg ring-1 ring-white/20">
     <h1 class="text-4xl font-extrabold text-center text-[#0a84ff] mb-8">Đăng nhập</h1>
-
     <div id="messageBox" class="mb-6 text-center font-semibold"></div>
-    
     <form id="loginForm" class="space-y-8">
       <div>
-        <label for="username" class="block text-sm font-semibold text-gray-700 mb-2">Tên đăng nhập</label>
+        <label for="username" class="block text-sm font-semibold text-white mb-2">Tên đăng nhập</label>
         <input
           type="text"
           id="username"
@@ -42,7 +44,7 @@
       </div>
 
       <div>
-        <label for="password" class="block text-sm font-semibold text-gray-700 mb-2">Mật khẩu</label>
+        <label for="password" class="block text-sm font-semibold text-white mb-2">Mật khẩu</label>
         <input
           type="password"
           id="password"
@@ -54,7 +56,7 @@
         />
       </div>
 
-      <div class="flex items-center justify-between text-sm text-gray-700">
+      <div class="flex items-center justify-between text-sm text-white">
         <label class="inline-flex items-center space-x-2">
           <input type="checkbox" name="remember" class="form-checkbox h-5 w-5 text-[#0a84ff]" />
           <span>Ghi nhớ đăng nhập</span>
@@ -70,7 +72,7 @@
       </button>
     </form>
 
-    <p class="mt-10 text-center text-gray-600 text-sm">
+    <p class="mt-10 text-center text-red-600 text-sm">
       Bạn chưa có tài khoản?
       <a href="dangky.html" class="text-[#0a84ff] font-semibold hover:underline">Tạo tài khoản</a>
     </p>

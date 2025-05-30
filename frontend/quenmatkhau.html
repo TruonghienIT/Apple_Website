@@ -21,15 +21,19 @@
     }
   </style>
 </head>
-<body class="flex items-center justify-center px-4 min-h-screen">
-  <div class="w-full max-w-md bg-white rounded-3xl p-10 shadow-lg">
+<body class="flex items-center bg-gradient-to-br from-black to-gray-900 justify-center px-4 min-h-screen">
+  <video autoplay loop muted playsinline
+    class="fixed top-0 left-0 w-full h-full object-cover z-[-1]">
+    <source src="Image/video_nen.mp4" type="video/mp4" />
+  </video>
+  <div class="w-full max-w-md bg-white/5 backdrop-blur-md rounded-3xl p-10 shadow-lg ring-1 ring-white/20">
     <h1 class="text-3xl font-extrabold text-center text-[#0a84ff] mb-4">Quên Mật Khẩu</h1>
 
     <div id="message" class="text-center text-sm mb-4"></div>
 
     <div class="mb-6 flex space-x-4">
       <div class="flex-grow">
-        <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">Email đăng ký</label>
+        <label for="email" class="block text-sm font-semibold text-white mb-2">Email đăng ký</label>
         <input
           type="text"
           id="email"
@@ -52,12 +56,12 @@
       </div>
     </div>
 
-    <div class="text-sm text-gray-500 mb-2">
+    <div class="text-sm text-red-600 mb-2">
       Mã xác nhận có hiệu lực trong <strong id="countdown_timer">1 phút</strong>. Bạn có thể gửi lại sau khi hết thời gian.
     </div>
 
     <div class="mb-6">
-      <label for="code" class="block text-sm font-semibold text-gray-700 mb-2">Mã xác nhận</label>
+      <label for="code" class="block text-sm font-semibold text-white mb-2">Mã xác nhận</label>
       <input
         type="text"
         id="code"
@@ -68,7 +72,7 @@
       />
     </div>
     <div class="mb-6">
-      <label for="new_password" class="block text-sm font-semibold text-gray-700 mb-2">Mật khẩu mới</label>
+      <label for="new_password" class="block text-sm font-semibold text-white mb-2">Mật khẩu mới</label>
       <input
         type="password"
         id="new_password"
@@ -79,7 +83,7 @@
       />
     </div>
     <div class="mb-8">
-      <label for="confirm_password" class="block text-sm font-semibold text-gray-700 mb-2">Xác nhận mật khẩu</label>
+      <label for="confirm_password" class="block text-sm font-semibold text-white mb-2">Xác nhận mật khẩu</label>
       <input
         type="password"
         id="confirm_password"

@@ -1,83 +1,90 @@
 <?php
-header("Content-Type: application/json; charset=UTF-8");
-if (ob_get_length()) ob_clean();
+header('Content-Type: application/json');
 
-include 'db.php'; // kết nối $conn
+$response = ['success' => false, 'message' => 'Lỗi không xác định.'];
 
-$data = json_decode(file_get_contents("php://input"), true);
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Lấy dữ liệu
+    $fullname = $_POST['fullname'] ?? '';
+    $username = $_POST['username'] ?? '';
+    $password = $_POST['password'] ?? '';
+    $email    = $_POST['email'] ?? '';
+    $gender   = $_POST['gender'] ?? '';
+    $phone    = $_POST['phone'] ?? '';
+    $address  = $_POST['address'] ?? '';
 
-if (!$data) {
-    echo json_encode(["success" => false, "message" => "Dữ liệu gửi lên không hợp lệ."]);
-    exit;
-}
+    if (empty($fullname) || empty($username) || empty($password) || empty($email) || empty($phone)) {
+        $response['message'] = 'Vui lòng điền đầy đủ các trường bắt buộc.';
+        echo json_encode($response);
+        exit;
+    }
 
-$fullname = trim($data['fullname'] ?? '');
-$username = trim($data['username'] ?? '');
-$password = $data['password'] ?? '';
-$confirmPassword = $data['confirmPassword'] ?? '';
-$gender = $data['gender'] ?? '';
-$email = trim($data['email'] ?? '');
-$phone = trim($data['phone'] ?? '');
-$address = trim($data['address'] ?? '');
+    // Xử lý upload ảnh
+    $avatar_url = null;
+    if (isset($_FILES['avatar']) && $_FILES['avatar']['error'] === UPLOAD_ERR_OK) {
+        $allowedTypes = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
+        $fileType = $_FILES['avatar']['type'];
 
-// Validate cơ bản
-if (empty($fullname) || empty($username) || empty($password) || empty($confirmPassword) || empty($email) || empty($phone)) {
-    echo json_encode(["success" => false, "message" => "Vui lòng điền đầy đủ các trường bắt buộc."]);
-    exit;
-}
+        if (!in_array($fileType, $allowedTypes)) {
+            $response['message'] = 'Chỉ chấp nhận ảnh JPG, PNG, GIF hoặc WebP.';
+            echo json_encode($response);
+            exit;
+        }
 
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    echo json_encode(["success" => false, "message" => "Email không hợp lệ."]);
-    exit;
-}
+        $tmp_name = $_FILES['avatar']['tmp_name'];
+        $ext = pathinfo($_FILES['avatar']['name'], PATHINFO_EXTENSION);
+        $filename = uniqid('img_') . '.' . $ext;
 
-if ($password !== $confirmPassword) {
-    echo json_encode(["success" => false, "message" => "Mật khẩu không khớp."]);
-    exit;
-}
+        $upload_dir = '../uploads/';
+        if (!file_exists($upload_dir)) {
+            mkdir($upload_dir, 0777, true);
+        }
 
-// Kiểm tra username tồn tại
-$stmt = $conn->prepare("SELECT id FROM users WHERE username = ?");
-$stmt->bind_param("s", $username);
-$stmt->execute();
-$stmt->store_result();
-if ($stmt->num_rows > 0) {
-    echo json_encode(["success" => false, "message" => "Tên đăng nhập đã tồn tại."]);
+        $path = $upload_dir . $filename;
+
+        if (move_uploaded_file($tmp_name, $path)) {
+            // Lưu đường dẫn tương đối để sau dễ dùng hiển thị ảnh
+            $avatar_url = 'uploads/' . $filename;
+        } else {
+            $response['message'] = 'Không thể lưu ảnh vào thư mục máy chủ.';
+            echo json_encode($response);
+            exit;
+        }
+    }
+
+    // Gán biến image trùng với cột trong database
+    $image = $avatar_url;
+
+    // Kết nối DB
+    $conn = new mysqli('localhost', 'root', '', 'appleweb');
+    if ($conn->connect_error) {
+        $response['message'] = 'Lỗi kết nối cơ sở dữ liệu: ' . $conn->connect_error;
+        echo json_encode($response);
+        exit;
+    }
+
+    // Mã hóa mật khẩu
+    $passwordHash = password_hash($password, PASSWORD_DEFAULT);
+
+    // Chuẩn bị câu SQL, dùng prepared statement tránh SQL injection
+    $stmt = $conn->prepare("INSERT INTO users (fullname, username, password, gender, email, address, phone, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    if (!$stmt) {
+        $response['message'] = 'Lỗi chuẩn bị câu truy vấn: ' . $conn->error;
+        echo json_encode($response);
+        exit;
+    }
+
+    $stmt->bind_param('ssssssss', $fullname, $username, $passwordHash, $gender, $email, $address, $phone, $image);
+
+    if ($stmt->execute()) {
+        $response['success'] = true;
+        $response['message'] = 'Đăng ký thành công!';
+    } else {
+        $response['message'] = 'Lỗi khi lưu dữ liệu: ' . $stmt->error;
+    }
+
     $stmt->close();
-    exit;
-}
-$stmt->close();
-
-// Kiểm tra email tồn tại
-$stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
-$stmt->bind_param("s", $email);
-$stmt->execute();
-$stmt->store_result();
-if ($stmt->num_rows > 0) {
-    echo json_encode(["success" => false, "message" => "Email đã được sử dụng."]);
-    $stmt->close();
-    exit;
-}
-$stmt->close();
-
-// Mã hóa mật khẩu
-$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-// Thêm user mới
-$stmt = $conn->prepare("INSERT INTO users (fullname, username, password, gender, email, address, phone) VALUES (?, ?, ?, ?, ?, ?, ?)");
-if (!$stmt) {
-    echo json_encode(["success" => false, "message" => "Lỗi chuẩn bị truy vấn INSERT."]);
-    exit;
-}
-$stmt->bind_param("sssssss", $fullname, $username, $hashedPassword, $gender, $email, $address, $phone);
-
-if ($stmt->execute()) {
-    echo json_encode(["success" => true, "message" => "🎉 Đăng ký thành công!"]);
-} else {
-    echo json_encode(["success" => false, "message" => "Đăng ký thất bại: " . $stmt->error]);
+    $conn->close();
 }
 
-$stmt->close();
-$conn->close();
-exit;
-?>
+echo json_encode($response);

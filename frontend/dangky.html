@@ -1,4 +1,3 @@
-<!-- dangky.html -->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -8,12 +7,15 @@
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="flex items-center justify-center min-h-screen bg-gradient-to-br from-black to-gray-900 text-white">
-  <div class="bg-white text-gray-900 rounded-3xl shadow-2xl p-10 w-full max-w-xl">
-    <h1 class="text-4xl font-bold text-center text-[#0a84ff] mb-8">Đăng ký tài khoản</h1>
+  <video autoplay loop muted playsinline class="fixed top-0 left-0 w-full h-full object-cover z-[-1]">
+    <source src="Image/video_nen.mp4" type="video/mp4" />
+  </video>
 
+  <div class="w-full max-w-md bg-white/5 backdrop-blur-md rounded-3xl p-10 shadow-lg ring-1 ring-white/20">
+    <h1 class="text-4xl font-bold text-center text-[#0a84ff] mb-8">Đăng ký tài khoản</h1>
     <div id="messageBox" class="hidden mb-4 text-center text-lg font-medium"></div>
 
-    <form id="registerForm" class="space-y-5" novalidate>
+    <form id="registerForm" class="space-y-5" enctype="multipart/form-data" novalidate>
       <input id="fullname" type="text" placeholder="Họ tên *" required class="w-full px-4 py-3 border rounded-xl" />
       <input id="username" type="text" placeholder="Tên đăng nhập *" required class="w-full px-4 py-3 border rounded-xl" />
       <div class="grid grid-cols-2 gap-4">
@@ -27,14 +29,17 @@
       <input id="email" type="email" placeholder="Email *" required class="w-full px-4 py-3 border rounded-xl" />
       <input id="phone" type="tel" placeholder="Số điện thoại *" required class="w-full px-4 py-3 border rounded-xl" />
       <input id="address" type="text" placeholder="Địa chỉ" class="w-full px-4 py-3 border rounded-xl" />
+      <input id="avatar" name="avatar" type="file" accept="image/*" class="text-white" />
       <label class="inline-flex items-start mt-2 text-sm">
         <input id="terms" type="checkbox" required class="mr-2 mt-1" />
-        Tôi đồng ý với <a href="#" class="text-[#0a84ff] ml-1 underline">điều khoản</a>.
+        Tôi đồng ý với <a href="#" class="text-[#ff0000] ml-1 underline">điều khoản</a>.
       </label>
 
       <div class="grid grid-cols-2 gap-4">
         <button type="submit" class="w-full bg-[#0a84ff] hover:bg-[#0066d6] text-white font-bold py-3 rounded-xl mt-4">Đăng ký</button>
-        <button type="button" class="w-full bg-[#0a84ff] hover:bg-[#0066d6] text-white font-bold py-3 rounded-xl mt-4"><a href="dangnhap.html">Đăng nhập</a></button>
+        <button type="button" class="w-full bg-[#0a84ff] hover:bg-[#0066d6] text-white font-bold py-3 rounded-xl mt-4">
+          <a href="dangnhap.html">Đăng nhập</a>
+        </button>
       </div>
     </form>
   </div>
@@ -47,23 +52,23 @@
     form.addEventListener('submit', async function (e) {
       e.preventDefault();
 
-      const data = {
-        fullname: document.getElementById('fullname').value.trim(),
-        username: document.getElementById('username').value.trim(),
-        password: document.getElementById('password').value,
-        confirmPassword: document.getElementById('confirmPassword').value,
-        gender: document.querySelector('input[name="gender"]:checked').value,
-        email: document.getElementById('email').value.trim(),
-        phone: document.getElementById('phone').value.trim(),
-        address: document.getElementById('address').value.trim()
-      };
+      const formData = new FormData();
+      formData.append('fullname', document.getElementById('fullname').value.trim());
+      formData.append('username', document.getElementById('username').value.trim());
+      formData.append('password', document.getElementById('password').value);
+      formData.append('confirmPassword', document.getElementById('confirmPassword').value);
+      formData.append('gender', document.querySelector('input[name="gender"]:checked').value);
+      formData.append('email', document.getElementById('email').value.trim());
+      formData.append('phone', document.getElementById('phone').value.trim());
+      formData.append('address', document.getElementById('address').value.trim());
+      formData.append('avatar', document.getElementById('avatar').files[0]);
 
       if (!document.getElementById('terms').checked) {
         showMessage("Bạn phải đồng ý với điều khoản.", false);
         return;
       }
 
-      if (data.password !== data.confirmPassword) {
+      if (formData.get('password') !== formData.get('confirmPassword')) {
         showMessage("Mật khẩu không khớp.", false);
         return;
       }
@@ -78,16 +83,12 @@
       try {
         const response = await fetch('../backend/register.php', {
           method: 'POST',
-          headers: {'Content-Type': 'application/json'},
-          body: JSON.stringify(data)
+          body: formData
         });
-
-        if (!response.ok) {
-          throw new Error(`HTTP error! status: ${response.status}`);
-        }
 
         const text = await response.text();
         let result;
+
         try {
           result = JSON.parse(text);
         } catch (e) {
