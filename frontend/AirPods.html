@@ -645,36 +645,62 @@
       </script>
       
       <script>
-        const editModal = document.getElementById("editProductModal");
-        const editForm = document.getElementById("editProductForm");
-        const btnSaveEdit = document.getElementById("btnSaveEdit");
-        const btnCloseEditForm = document.getElementById("btnCloseEditForm");
-        const confirmSection = document.getElementById("confirmEditSection");
-        const btnConfirmEditYes = document.getElementById("btnConfirmEditYes");
-        const btnConfirmEditNo = document.getElementById("btnConfirmEditNo");
+        const backendBaseURL = "http://localhost/Web%20Apple/backend";
 
-        let editProductPayload = null;
+        // ======= MỞ & ĐÓNG FORM SỬA =======
+        document.getElementById("btnOpenEdit").addEventListener("click", () => {
+          document.getElementById("editProductModal").classList.remove("hidden");
+          loadProductDropdown();
+        });
 
-        function openEditModal(product) {
-          document.getElementById("editProductId").value = product.id || "";
+        document.getElementById("btnCloseEditForm").addEventListener("click", () => {
+          document.getElementById("editProductModal").classList.add("hidden");
+          document.getElementById("confirmEditSection").classList.add("hidden");
+          editProductPayload = null;
+        });
+
+        // ======= TẢI DANH SÁCH SẢN PHẨM =======
+        async function loadProductDropdown() {
+          try {
+            const res = await fetch(`${backendBaseURL}/get_product.php`);
+            if (!res.ok) throw new Error(`Lỗi tải sản phẩm: ${res.status}`);
+
+            const data = await res.json();
+            const select = document.getElementById("productSelect");
+            select.innerHTML = `<option value="">-- Chọn sản phẩm --</option>`;
+            data.products.filter(p => p.category.toLowerCase() === 'airpods')
+            .forEach(p => {
+              const option = document.createElement("option");
+              option.value = p.id;
+              option.textContent = p.name;
+              option.dataset.product = JSON.stringify(p);
+              select.appendChild(option);
+            });
+          } catch (error) {
+            console.error("Lỗi load danh sách sản phẩm:", error);
+            alert("Lỗi kết nối hoặc tải sản phẩm, vui lòng thử lại.");
+          }
+        }
+
+        // ======= ĐỔ DỮ LIỆU VÀO FORM SỬA =======
+        document.getElementById("productSelect").addEventListener("change", function () {
+          const selectedOption = this.options[this.selectedIndex];
+          const product = JSON.parse(selectedOption.dataset.product || "{}");
+
+          document.querySelector('[name="productId"]').value = product.id || "";
           document.getElementById("editName").value = product.name || "";
           document.getElementById("editPrice").value = product.price || "";
           document.getElementById("editDiscountPrice").value = product.discount_price || "";
           document.getElementById("editDescription").value = product.description || "";
-
-          confirmSection.classList.add("hidden");
-          editModal.classList.remove("hidden");
-          editProductPayload = null;
-        }
-
-        btnCloseEditForm.addEventListener("click", () => {
-          editModal.classList.add("hidden");
-          confirmSection.classList.add("hidden");
-          editProductPayload = null;
         });
 
-        btnSaveEdit.addEventListener("click", () => {
-          const productId = document.getElementById("editProductId").value.trim();
+        // ======= LƯU TẠM DỮ LIỆU CHỈNH SỬA =======
+        let editProductPayload = null;
+
+        document.getElementById("editProductForm").addEventListener("submit", function (e) {
+          e.preventDefault();
+
+          const productId = document.querySelector('[name="productId"]').value;
           const name = document.getElementById("editName").value.trim();
           const price = parseFloat(document.getElementById("editPrice").value);
           const discount_price = parseFloat(document.getElementById("editDiscountPrice").value) || 0;
@@ -685,67 +711,142 @@
             return;
           }
 
-          editProductPayload = { id: productId, name, price, discount_price, description };
-          confirmSection.classList.remove("hidden");
+          editProductPayload = { productId, name, price, discount_price, description };
+          document.getElementById("confirmEditSection").classList.remove("hidden");
         });
 
-        btnConfirmEditNo.addEventListener("click", () => {
-          confirmSection.classList.add("hidden");
-          editProductPayload = null;
-        });
-
-        btnConfirmEditYes.addEventListener("click", async () => {
+        // ======= XÁC NHẬN LƯU CHỈNH SỬA =======
+        document.getElementById("btnConfirmEditYes").addEventListener("click", async () => {
           if (!editProductPayload) return;
 
           try {
-            const response = await fetch(`${backendBaseURL}/update_phukien.php`, {
+            const response = await fetch(`${backendBaseURL}/update_product.php`, {
               method: "POST",
               headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(editProductPayload),
+              body: JSON.stringify(editProductPayload)
             });
 
             const result = await response.json();
-
             if (result.success) {
-              alert("Cập nhật sản phẩm thành công!");
-              editModal.classList.add("hidden");
-              editForm.reset();
-              if (typeof loadAccessories === "function") loadAccessories();
+              alert("Cập nhật thành công!");
+              document.getElementById("editProductModal").classList.add("hidden");
+              if (typeof loadProductList === "function") loadProductList();
             } else {
-              alert("Cập nhật thất bại: " + (result.message || "Không rõ lỗi"));
+              alert("Cập nhật thất bại: " + result.message);
             }
           } catch (error) {
-            console.error("Lỗi khi cập nhật sản phẩm:", error);
+            console.error("Lỗi cập nhật sản phẩm:", error);
             alert("Lỗi kết nối máy chủ, vui lòng thử lại.");
           } finally {
-            confirmSection.classList.add("hidden");
+            document.getElementById("confirmEditSection").classList.add("hidden");
             editProductPayload = null;
           }
         });
 
-        // Xóa sản phẩm
-        async function deleteProduct(productId, productName) {
-          if (confirm(`Bạn có chắc chắn muốn xóa sản phẩm "${productName}" không?`)) {
-            try {
-              const response = await fetch(`${backendBaseURL}/delete_product.php`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ id: parseInt(productId) }),
-              });
+        document.getElementById("btnConfirmEditNo").addEventListener("click", () => {
+          document.getElementById("confirmEditSection").classList.add("hidden");
+          editProductPayload = null;
+        });
+        // ======= XÓA SẢN PHẨM =======
+        const btnOpenDelete = document.getElementById('btnOpenDelete');
+        const deleteModal = document.getElementById('deleteProductModal');
+        const deleteSelect = document.getElementById('deleteProductSelect');
+        const btnConfirmDelete = document.getElementById('btnConfirmDelete');
+        const btnCloseDeleteForm = document.getElementById('btnCloseDeleteForm');
 
-              const result = await response.json();
-              if (result.success) {
-                alert("Xóa thành công.");
-                if (typeof loadAccessories === "function") loadAccessories();
-              } else {
-                alert("Lỗi xóa: " + (result.message || "Không rõ lỗi."));
-              }
-            } catch (error) {
-              console.error("Lỗi khi gọi API xóa:", error);
-              alert("Lỗi kết nối đến máy chủ.");
-            }
+        const confirmDeleteSection = document.getElementById('confirmDeleteSection');
+        const confirmDeleteText = document.getElementById('confirmDeleteText');
+        const btnConfirmDeleteYes = document.getElementById('btnConfirmDeleteYes');
+        const btnConfirmDeleteNo = document.getElementById('btnConfirmDeleteNo');
+
+        let productsForDelete = [];
+
+        btnOpenDelete.addEventListener('click', async () => {
+          deleteModal.classList.remove('hidden');
+
+          try {
+            const response = await fetch(`${backendBaseURL}/get_product.php`);
+            if (!response.ok) throw new Error(`Không lấy được danh sách sản phẩm (${response.status})`);
+            const data = await response.json();
+
+            productsForDelete = data.products || [];
+
+            deleteSelect.innerHTML = '<option value="">-- Chọn sản phẩm --</option>';
+            productsForDelete.filter(p => p.category.toLowerCase() === 'airpods')
+            .forEach(p => {
+              const option = document.createElement('option');
+              option.value = p.id;
+              option.textContent = p.name;
+              deleteSelect.appendChild(option);
+            });
+
+            deleteSelect.value = "";
+            btnConfirmDelete.disabled = true;
+
+            confirmDeleteSection.classList.add('hidden');
+            btnConfirmDelete.style.display = 'inline-block';
+
+          } catch (error) {
+            alert(error.message);
           }
-        }
+        });
+
+        btnCloseDeleteForm.addEventListener('click', () => {
+          deleteModal.classList.add('hidden');
+        });
+
+        deleteSelect.addEventListener('change', () => {
+          btnConfirmDelete.disabled = !deleteSelect.value;
+        });
+
+        btnConfirmDelete.addEventListener('click', () => {
+          const selectedIndex = deleteSelect.selectedIndex;
+          if (selectedIndex <= 0) return;
+
+          const productName = deleteSelect.options[selectedIndex].text;
+
+          btnConfirmDelete.style.display = 'none';
+          confirmDeleteSection.classList.remove('hidden');
+          confirmDeleteText.textContent = `Bạn có chắc chắn muốn xóa sản phẩm "${productName}" không?`;
+        });
+
+        btnConfirmDeleteYes.addEventListener('click', async () => {
+          const id = deleteSelect.value;
+          if (!id) return;
+
+          try {
+            const response = await fetch(`${backendBaseURL}/delete_product.php`, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ id })
+            });
+
+            if (!response.ok) throw new Error(`Lỗi server: ${response.status}`);
+
+            const result = await response.json();
+
+            if (result.success) {
+              alert('Xóa sản phẩm thành công!');
+              deleteModal.classList.add('hidden');
+              btnConfirmDelete.style.display = 'inline-block';
+              confirmDeleteSection.classList.add('hidden');
+              deleteSelect.value = "";
+              btnConfirmDelete.disabled = true;
+
+              if (typeof loadProductList === "function") loadProductList();
+            } else {
+              alert('Lỗi xóa sản phẩm: ' + result.message);
+            }
+          } catch (error) {
+            console.error("Lỗi xóa sản phẩm:", error);
+            alert('Lỗi kết nối máy chủ, vui lòng thử lại.');
+          }
+        });
+
+        btnConfirmDeleteNo.addEventListener('click', () => {
+          confirmDeleteSection.classList.add('hidden');
+          btnConfirmDelete.style.display = 'inline-block';
+        });
       </script>
 
 
@@ -802,7 +903,7 @@
                 : `<p>${Number(product.price).toLocaleString('vi-VN')}₫</p>`;
 
               const productHtml = `
-                <div class="relative rounded-2xl bg-[#FEE2E2] p-4 cursor-pointer">
+                <div class="relative rounded-2xl bg-[#D6E4FF] p-4 cursor-pointer">
                   <img src="${imageUrl}" alt="${product.name}" data-id="${product.id}" class="mt-2 rounded-xl product-image hover:scale-105 transition-transform duration-200" />
                   <h3 class="font-semibold text-sm mb-1">${product.name}</h3>
                   <div class="text-red-600 text-lg font-bold">${discountHtml}</div>

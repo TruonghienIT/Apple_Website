@@ -421,21 +421,21 @@
             <button class="px-4 py-2 rounded-full bg-gray-100 text-lg text-gray-800 font-medium hover:bg-blue-200 transition">Apple Watch SE</button>
           </a>
           <a href="#WatchUltraHeader">
-            <button class="px-4 py-2 rounded-full bg-gray-100 text-lg text-gray-800 font-medium hover:bg-blue-200 transition">Apple Watch SE</button>
+            <button class="px-4 py-2 rounded-full bg-gray-100 text-lg text-gray-800 font-medium hover:bg-blue-200 transition">Apple Watch Ultra</button>
           </a>
         </div>
         <br>
           
         <br>
         <div id="WatchSeriesHeader" class="flex items-center mb-6">
-          <div class="bg-gray-900 text-white font-semibold px-4 py-2 rounded-tr-xl rounded-bl-xl">Apple Watch SE</div>
+          <div class="bg-gray-900 text-white font-semibold px-4 py-2 rounded-tr-xl rounded-bl-xl">Apple Watch Series</div>
           <div class="flex-grow h-1 bg-gray-900 ml-4 rounded"></div>
         </div>
         <div id="WatchSeriesList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center text-center"></div>
         <br>
 
         <div id="WatchSEHeader" class="flex items-center mb-6">
-          <div class="bg-gray-900 text-white font-semibold px-4 py-2 rounded-tr-xl rounded-bl-xl">Apple Watch Ultra</div>
+          <div class="bg-gray-900 text-white font-semibold px-4 py-2 rounded-tr-xl rounded-bl-xl">Apple Watch SE</div>
           <div class="flex-grow h-1 bg-gray-900 ml-4 rounded"></div>
         </div>
         <div id="WatchSEList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center text-center"></div>
@@ -904,7 +904,7 @@
                   : `<p class="text-red-600 text-lg font-bold">${Number(product.price).toLocaleString('vi-VN')}₫</p>`;
 
                 const productHtml = `
-                  <div class="relative rounded-2xl bg-[#FEE2E2] p-4 cursor-pointer">
+                  <div class="relative rounded-2xl bg-[#FFF4D6] p-4 cursor-pointer">
                     <img src="${imageUrl}" alt="${product.name}" data-id="${product.id}" class="mt-2 rounded-xl product-image hover:scale-105 transition-transform duration-200" />
                     <h3 class="font-semibold text-sm mb-1">${product.name}</h3>
                     ${discountSection}

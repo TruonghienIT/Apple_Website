@@ -1,6 +1,7 @@
 <?php
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
+date_default_timezone_set('Asia/Ho_Chi_Minh');
 
 session_start();
 header('Content-Type: application/json; charset=UTF-8');
@@ -70,13 +71,13 @@ if ($checkResult->num_rows > 0) {
     $lastTime = strtotime($lastRecord['created_at']);
     $now = time();
 
-    $cooldown = 60; // giây nút gửi lại
+    $cooldown = 120; // giây nút gửi lại
     $diff = $now - $lastTime;
 
     if ($diff < $cooldown) {
         echo json_encode([
             'success' => false,
-            'message' => 'Bạn vừa gửi yêu cầu, vui lòng thử lại sau 1 phút.',
+            'message' => 'Bạn vừa gửi yêu cầu, vui lòng thử lại sau 2 phút.',
             'remaining_time' => $cooldown - $diff,
             'server_time' => date('Y-m-d H:i:s', $now),
             'created_at' => $lastRecord['created_at']
@@ -87,7 +88,7 @@ if ($checkResult->num_rows > 0) {
 
 // Tạo mã xác nhận và thời gian hết hạn
 $code = rand(100000, 999999);
-$expiry = date('Y-m-d H:i:s', strtotime('+1 minutes'));
+$expiry = date('Y-m-d H:i:s', strtotime('+2 minutes'));
 $createdAt = date('Y-m-d H:i:s');
 
 // Lưu mã vào DB
@@ -119,7 +120,7 @@ try {
     $mail->addAddress($email);
     $mail->isHTML(true);
     $mail->Subject = 'Mã xác nhận đặt lại mật khẩu';
-    $mail->Body    = "<p>Mã xác nhận của bạn là: <strong>$code</strong></p><p>Mã sẽ hết hạn sau 1 phút.</p>";
+    $mail->Body    = "<p>Mã xác nhận của bạn là: <strong>$code</strong></p><p>Mã sẽ hết hạn sau 2 phút.</p>";
 
     $mail->send();
 

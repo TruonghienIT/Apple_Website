@@ -38,7 +38,7 @@ $stmt->execute();
 $codeResult = $stmt->get_result();
 
 if ($codeResult->num_rows === 0) {
-    echo json_encode(['success' => false, 'message' => 'Mã xác nhận không hợp lệ hoặc đã hết hạn (chỉ có hiệu lực trong 1 phút).']);
+    echo json_encode(['success' => false, 'message' => 'Mã xác nhận không hợp lệ hoặc đã hết hạn (chỉ có hiệu lực trong 2 phút).']);
     exit();
 }
 
