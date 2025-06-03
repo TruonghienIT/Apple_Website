@@ -358,270 +358,268 @@
     </div>
   </div>
 
-<script>
-  // Hàm tải thông tin hồ sơ người dùng
-  function loadProfile() {
-  fetch('http://localhost/Web%20Apple/backend/get_profile.php', {
-    credentials: 'include'
-  })
-  .then(res => res.json())
-  .then(data => {
-    console.log("Profile data:", data); // Debug dữ liệu trả về
-
-    if (data.error || !data.user) {
-      alert(data.error || "Không lấy được thông tin người dùng");
-      return;
-    }
-    const user = data.user;
-    document.getElementById("avatar").src = user.image || "default-avatar.jpg";
-    document.getElementById("fullname").textContent = user.fullname || "Chưa có tên";
-    document.getElementById("email").textContent = user.email || "Chưa có email";
-
-    document.getElementById("inputFullname").value = user.fullname || "";
-    document.getElementById("inputEmail").value = user.email || "";
-    document.getElementById("inputPhone").value = user.phone || "";
-    document.getElementById("inputAddress").value = user.address || "";
-
-    if (data.stats) {
-      // Nếu stats.purchased là undefined hoặc null thì giữ nguyên giá trị cũ hoặc hiển thị 0
-      const purchased = (data.stats.purchased !== undefined && data.stats.purchased !== null) ? data.stats.purchased : 0;
-      document.getElementById("countPurchased").textContent = purchased;
-      document.getElementById("countCart").textContent = data.stats.cart || 0;
-      document.getElementById("countFollowing").textContent = data.stats.following || 0;
-    }
-  })
-  .catch(() => alert("Lỗi khi tải dữ liệu hồ sơ"));
-}
-
-  // Hàm tải danh sách sản phẩm trong giỏ hàng
-  function loadCartItems() {
-    fetch("http://localhost/Web%20Apple/backend/get_cart_items.php", { credentials: "include" })
-      .then(res => res.json())
-      .then(data => {
-        const container = document.getElementById("cartItems");
-        const countElement = document.getElementById("countCart");
-
-        if (!data.success) {
-          container.innerHTML = `<p class="text-red-600">${data.message || "Lỗi tải giỏ hàng"}</p>`;
-          countElement.textContent = "0";
-          return;
-        }
-
-        if (!data.items || data.items.length === 0) {
-          container.innerHTML = `<p class="text-gray-500">Giỏ hàng trống.</p>`;
-          countElement.textContent = "0";
-          document.getElementById("totalAmount").textContent = "0₫"; // reset tổng tiền về 0 khi 0 có sản phẩm nào trong giỏ hàng
-          return;
-        }
-
-        container.innerHTML = "";
-        const itemCount = data.items.length;
-        countElement.textContent = itemCount;
-        let totalAmount = 0;
-
-        data.items.forEach(item => {
-          const price = parseInt(item.price);
-          const quantity = parseInt(item.quantity);
-          totalAmount += price * quantity;
-
-          const card = document.createElement("div");
-          card.className = "border rounded p-4 flex items-center gap-4";
-
-          card.innerHTML = `
-            <img src="${item.image}" class="w-20 h-20 object-cover rounded border" alt="${item.name}">
-            <div class="flex-1">
-              <h4 class="font-semibold">${item.name}</h4>
-              <p class="text-sm text-gray-600">Số lượng: ${item.quantity}</p>
-              <p class="text-sm text-gray-800 font-medium">Giá: ${item.price}₫</p>
-            </div>
-            <input type="checkbox" class="checkout-item w-5 h-5" data-price="${item.price}" data-quantity="${item.quantity}" data-id="${item.id}" />
-          `;
-
-          container.appendChild(card);
-        });
-        document.getElementById("totalAmount").textContent = `${totalAmount.toLocaleString()}₫`;
-      })
-      .catch(err => {
-        console.error("Lỗi:", err);
-        document.getElementById("cartItems").innerHTML = `<p class="text-red-600">Không thể tải giỏ hàng.</p>`;
-        document.getElementById("countCart").textContent = "0";
-      });
-  }
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const modal = document.getElementById("editModal");
-    const editBtn = document.getElementById("editProfileBtn");
-    const cancelBtn = document.getElementById("cancelBtn");
-    const form = document.getElementById("editProfileForm");
-
-    loadProfile();
-    loadCartItems();
-
-    editBtn.addEventListener("click", () => modal.classList.add("active"));
-    cancelBtn.addEventListener("click", () => modal.classList.remove("active"));
-
-    form.addEventListener("submit", (e) => {
-      e.preventDefault();
-      const formData = new FormData(form);
-      fetch("http://localhost/Web%20Apple/backend/update_profile.php", {
-        method: "POST",
-        body: formData,
-        credentials: "include"
-      })
-      .then(res => res.json())
-      .then(data => {
-        if(data.success) {
-          alert(data.message || "Cập nhật hồ sơ thành công");
-          modal.classList.remove("active");
-          loadProfile();
-        } else {
-          alert("Lỗi: " + (data.message || "Không thể cập nhật"));
-        }
-      })
-      .catch(() => alert("Lỗi khi gửi dữ liệu"));
-    });
-
-    modal.addEventListener("click", (e) => {
-      if(e.target === modal) modal.classList.remove("active");
-    });
-
-    const detailModal = document.getElementById("detailModal");
-    document.getElementById("showDetailBtn").addEventListener("click", () => {
-      fetch("http://localhost/Web%20Apple/backend/get_profile.php", { credentials: 'include' })
-      .then(res => res.json())
-      .then(data => {
-        if(data.error || !data.user) {
-          alert(data.error || "Không lấy được thông tin chi tiết");
-          return;
-        }
-        const u = data.user;
-        document.getElementById("detailAvatar").src = u.image || "default-avatar.jpg";
-        document.getElementById("detailFullname").textContent = u.fullname || "-";
-        document.getElementById("detailEmail").textContent = u.email || "-";
-        document.getElementById("detailUsername").textContent = u.username || "-";
-        document.getElementById("detailGender").textContent = u.gender || "-";
-        document.getElementById("detailPhone").textContent = u.phone || "-";
-        document.getElementById("detailAddress").textContent = u.address || "-";
-
-        detailModal.classList.remove("hidden");
-      })
-      .catch(() => alert("Lỗi khi tải chi tiết hồ sơ"));
-    });
-
-    document.getElementById("closeDetailBtn").addEventListener("click", () => {
-      detailModal.classList.add("hidden");
-    });
-
-    document.getElementById("checkoutBtn").addEventListener("click", () => {
-      openCheckoutModal();
-    });
-  });
-
-  function openCheckoutModal() {
-    const checkedItems = document.querySelectorAll(".checkout-item:checked");
-    if (checkedItems.length === 0) {
-      alert("Vui lòng chọn ít nhất một sản phẩm để thanh toán.");
-      return;
-    }
-
-    fetch('http://localhost/Web%20Apple/backend/get_profile.php', { credentials: 'include' })
-      .then(res => res.json())
-      .then(data => {
-        if (data.error || !data.user) {
-          alert(data.error || "Không lấy được thông tin người dùng");
-          return;
-        }
-
-        const user = data.user;
-        document.getElementById("checkoutUserName").textContent = user.fullname || "";
-        document.getElementById("checkoutUserPhone").textContent = user.phone || "";
-        document.getElementById("checkoutUserAddress").textContent = user.address || "";
-
-        const tbody = document.getElementById("checkoutCartItems");
-        tbody.innerHTML = "";
-
-        let total = 0;
-        checkedItems.forEach(item => {
-          const container = item.closest("div");
-          const name = container.querySelector("h4").textContent;
-          const price = parseInt(item.dataset.price);
-          const quantity = parseInt(item.dataset.quantity);
-          const sum = price * quantity;
-          total += sum;
-
-          const tr = document.createElement("tr");
-          tr.innerHTML = `
-            <td class="border px-2 py-1">${name}</td>
-            <td class="border px-2 py-1 text-center">${quantity}</td>
-            <td class="border px-2 py-1 text-right">${price.toLocaleString()}₫</td>
-            <td class="border px-2 py-1 text-right">${sum.toLocaleString()}₫</td>
-          `;
-          tbody.appendChild(tr);
-        });
-
-        document.getElementById("checkoutTotal").textContent = total.toLocaleString() + "₫";
-
-        const modal = document.getElementById("checkoutModal");
-        modal.classList.remove("hidden");
-        modal.classList.add("flex");
-      })
-      .catch(() => alert("Lỗi tải thông tin người dùng"));
-  }
-
-  function closeCheckoutModal() {
-    const modal = document.getElementById("checkoutModal");
-    modal.classList.add("hidden");
-    modal.classList.remove("flex");
-  }
-
-  function submitCheckout() {
-    const paymentMethod = document.getElementById("paymentMethod").value;
-    const orderNote = document.getElementById("orderNote").value;
-    const checkedItems = document.querySelectorAll(".checkout-item:checked");
-
-    if (checkedItems.length === 0) {
-      alert("Không có sản phẩm để thanh toán.");
-      return;
-    }
-
-    const product_ids = Array.from(checkedItems).map(item => parseInt(item.dataset.id));
-
-    fetch("http://localhost/Web%20Apple/backend/checkout.php", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-      body: JSON.stringify({
-        payment_method: paymentMethod,
-        note: orderNote,
-        product_ids: product_ids
-      })
+  <script>
+    // Hàm tải thông tin hồ sơ người dùng
+    function loadProfile() {
+    fetch('http://localhost/Web%20Apple/backend/get_profile.php', {
+      credentials: 'include'
     })
-    .then(res => {
-      if (!res.ok) throw new Error("HTTP error " + res.status);
-      return res.json();
-    })
+    .then(res => res.json())
     .then(data => {
-      console.log("Response data:", data);
-      if (data.success) {
-        alert("Thanh toán thành công!");
-        closeCheckoutModal();
-        loadCartItems();
-        if (data.purchased !== undefined) {
-          const countPurchasedElem = document.getElementById("countPurchased");
-          if (countPurchasedElem) {
-            countPurchasedElem.textContent = data.purchased;
-          }
-        }
-      } else {
-        alert("Lỗi thanh toán: " + (data.message || "Không xác định"));
+      console.log("Profile data:", data); // Debug dữ liệu trả về
+
+      if (data.error || !data.user) {
+        alert(data.error || "Không lấy được thông tin người dùng");
+        return;
+      }
+      const user = data.user;
+      document.getElementById("avatar").src = user.image || "default-avatar.jpg";
+      document.getElementById("fullname").textContent = user.fullname || "Chưa có tên";
+      document.getElementById("email").textContent = user.email || "Chưa có email";
+
+      document.getElementById("inputFullname").value = user.fullname || "";
+      document.getElementById("inputEmail").value = user.email || "";
+      document.getElementById("inputPhone").value = user.phone || "";
+      document.getElementById("inputAddress").value = user.address || "";
+
+      if (data.stats) {
+        // Nếu stats.purchased là undefined hoặc null thì giữ nguyên giá trị cũ hoặc hiển thị 0
+        const purchased = (data.stats.purchased !== undefined && data.stats.purchased !== null) ? data.stats.purchased : 0;
+        document.getElementById("countPurchased").textContent = purchased;
+        document.getElementById("countCart").textContent = data.stats.cart || 0;
+        document.getElementById("countFollowing").textContent = data.stats.following || 0;
       }
     })
-    .catch(err => {
-      console.error("Fetch error:", err);
-      alert("Lỗi khi gửi yêu cầu thanh toán: " + err.message);
-    });
+    .catch(() => alert("Lỗi khi tải dữ liệu hồ sơ"));
   }
-</script>
+
+    // Hàm tải danh sách sản phẩm trong giỏ hàng
+    function loadCartItems() {
+      fetch("http://localhost/Web%20Apple/backend/get_cart_items.php", { credentials: "include" })
+        .then(res => res.json())
+        .then(data => {
+          const container = document.getElementById("cartItems");
+          const countElement = document.getElementById("countCart");
+
+          if (!data.success) {
+            container.innerHTML = `<p class="text-red-600">${data.message || "Lỗi tải giỏ hàng"}</p>`;
+            countElement.textContent = "0";
+            return;
+          }
+
+          if (!data.items || data.items.length === 0) {
+            container.innerHTML = `<p class="text-gray-500">Giỏ hàng trống.</p>`;
+            countElement.textContent = "0";
+            document.getElementById("totalAmount").textContent = "0₫"; // reset tổng tiền về 0 khi 0 có sản phẩm nào trong giỏ hàng
+            return;
+          }
+
+          container.innerHTML = "";
+          const itemCount = data.items.length;
+          countElement.textContent = itemCount;
+          let totalAmount = 0;
+
+          data.items.forEach(item => {
+            const discount_price = parseInt(item.discount_price);
+            const quantity = parseInt(item.quantity);
+            totalAmount += discount_price * quantity;
+
+            const card = document.createElement("div");
+            card.className = "border rounded p-4 flex items-center gap-4";
+
+            card.innerHTML = `
+              <img src="${item.image}" class="w-20 h-20 object-cover rounded border" alt="${item.name}">
+              <div class="flex-1">
+                <h4 class="font-semibold">${item.name}</h4>
+                <p class="text-sm text-gray-600">Số lượng: ${item.quantity}</p>
+                <p class="text-sm text-gray-800 font-medium">Giá: ${item.discount_price}₫</p>
+              </div>
+              <input type="checkbox" class="checkout-item w-5 h-5" data-discount_price="${item.discount_price}" data-quantity="${item.quantity}" data-id="${item.id}" />
+            `;
+
+            container.appendChild(card);
+          });
+          document.getElementById("totalAmount").textContent = `${totalAmount.toLocaleString()}₫`;
+        })
+        .catch(err => {
+          console.error("Lỗi:", err);
+          document.getElementById("cartItems").innerHTML = `<p class="text-red-600">Không thể tải giỏ hàng.</p>`;
+          document.getElementById("countCart").textContent = "0";
+        });
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const modal = document.getElementById("editModal");
+      const editBtn = document.getElementById("editProfileBtn");
+      const cancelBtn = document.getElementById("cancelBtn");
+      const form = document.getElementById("editProfileForm");
+
+      loadProfile();
+      loadCartItems();
+
+      editBtn.addEventListener("click", () => modal.classList.add("active"));
+      cancelBtn.addEventListener("click", () => modal.classList.remove("active"));
+
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const formData = new FormData(form);
+        fetch("http://localhost/Web%20Apple/backend/update_profile.php", {
+          method: "POST",
+          body: formData,
+          credentials: "include"
+        })
+        .then(res => res.json())
+        .then(data => {
+          if(data.success) {
+            alert(data.message || "Cập nhật hồ sơ thành công");
+            modal.classList.remove("active");
+            loadProfile();
+          } else {
+            alert("Lỗi: " + (data.message || "Không thể cập nhật"));
+          }
+        })
+        .catch(() => alert("Lỗi khi gửi dữ liệu"));
+      });
+
+      modal.addEventListener("click", (e) => {
+        if(e.target === modal) modal.classList.remove("active");
+      });
+
+      const detailModal = document.getElementById("detailModal");
+      document.getElementById("showDetailBtn").addEventListener("click", () => {
+        fetch("http://localhost/Web%20Apple/backend/get_profile.php", { credentials: 'include' })
+        .then(res => res.json())
+        .then(data => {
+          if(data.error || !data.user) {
+            alert(data.error || "Không lấy được thông tin chi tiết");
+            return;
+          }
+          const u = data.user;
+          document.getElementById("detailAvatar").src = u.image || "default-avatar.jpg";
+          document.getElementById("detailFullname").textContent = u.fullname || "-";
+          document.getElementById("detailEmail").textContent = u.email || "-";
+          document.getElementById("detailUsername").textContent = u.username || "-";
+          document.getElementById("detailGender").textContent = u.gender || "-";
+          document.getElementById("detailPhone").textContent = u.phone || "-";
+          document.getElementById("detailAddress").textContent = u.address || "-";
+
+          detailModal.classList.remove("hidden");
+        })
+        .catch(() => alert("Lỗi khi tải chi tiết hồ sơ"));
+      });
+
+      document.getElementById("closeDetailBtn").addEventListener("click", () => {
+        detailModal.classList.add("hidden");
+      });
+
+      document.getElementById("checkoutBtn").addEventListener("click", () => {
+        openCheckoutModal();
+      });
+    });
+
+    function openCheckoutModal() {
+      const checkedItems = document.querySelectorAll(".checkout-item:checked");
+      if (checkedItems.length === 0) {
+        alert("Vui lòng chọn ít nhất một sản phẩm để thanh toán.");
+        return;
+      }
+
+      fetch('http://localhost/Web%20Apple/backend/get_profile.php', { credentials: 'include' })
+        .then(res => res.json())
+        .then(data => {
+          if (data.error || !data.user) {
+            alert(data.error || "Không lấy được thông tin người dùng");
+            return;
+          }
+
+          const user = data.user;
+          document.getElementById("checkoutUserName").textContent = user.fullname || "";
+          document.getElementById("checkoutUserPhone").textContent = user.phone || "";
+          document.getElementById("checkoutUserAddress").textContent = user.address || "";
+
+          const tbody = document.getElementById("checkoutCartItems");
+          tbody.innerHTML = "";
+
+          let total = 0;
+          checkedItems.forEach(item => {
+            const container = item.closest("div");
+            const name = container.querySelector("h4").textContent;
+            const discount_price = parseInt(item.dataset.discount_price);
+            const quantity = parseInt(item.dataset.quantity);
+            const sum = discount_price * quantity;
+            total += sum;
+
+            const tr = document.createElement("tr");
+            tr.innerHTML = `
+              <td class="border px-2 py-1">${name}</td>
+              <td class="border px-2 py-1 text-center">${quantity}</td>
+              <td class="border px-2 py-1 text-right">${discount_price.toLocaleString()}₫</td>
+              <td class="border px-2 py-1 text-right">${sum.toLocaleString()}₫</td>
+            `;
+            tbody.appendChild(tr);
+          });
+
+          document.getElementById("checkoutTotal").textContent = total.toLocaleString() + "₫";
+
+          const modal = document.getElementById("checkoutModal");
+          modal.classList.remove("hidden");
+          modal.classList.add("flex");
+        })
+        .catch(() => alert("Lỗi tải thông tin người dùng"));
+    }
+
+    function closeCheckoutModal() {
+      const modal = document.getElementById("checkoutModal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    function submitCheckout() {
+      const paymentMethod = document.getElementById("paymentMethod").value;
+      const orderNote = document.getElementById("orderNote").value;
+      const checkedItems = document.querySelectorAll(".checkout-item:checked");
+
+      if (checkedItems.length === 0) {
+        alert("Không có sản phẩm để thanh toán.");
+        return;
+      }
+
+      const product_ids = Array.from(checkedItems).map(item => parseInt(item.dataset.id));
+
+      fetch("http://localhost/Web%20Apple/backend/checkout.php", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify({
+          payment_method: paymentMethod,
+          note: orderNote,
+          product_ids: product_ids
+        })
+      })
+      .then(res => {
+        if (!res.ok) throw new Error("HTTP error " + res.status);
+        return res.json();
+      })
+      .then(data => {
+        console.log("Response data:", data);
+        if (data.success) {
+          alert("Thanh toán thành công!");
+          closeCheckoutModal();
+          loadCartItems();
+          if (data.purchased !== undefined) {
+            const countPurchasedElem = document.getElementById("countPurchased");
+            countPurchasedElem.textContent = data.purchased;
+          }
+        } else {
+          alert("Lỗi thanh toán: " + (data.message || "Không xác định"));
+        }
+      })
+      .catch(err => {
+        console.error("Fetch error:", err);
+        alert("Lỗi khi gửi yêu cầu thanh toán: " + err.message);
+      });
+    }
+  </script>
 
 </body> 
 </html>

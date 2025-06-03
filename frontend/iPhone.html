@@ -336,8 +336,8 @@
         </div>
 
         <!-- Nút Sửa -->
-        <div id="editProductModal" class="hidden fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50">
-          <div class="bg-white p-6 rounded shadow-lg w-[400px] max-w-full">
+        <div id="editProductModal" class="hidden fixed inset-0 bg-black bg-opacity-40 flex items-center justify-center z-50 p-4">
+          <div class="bg-white rounded-lg shadow-lg max-w-lg w-full p-6 relative overflow-auto max-h-[90vh]">
             <h3 class="text-xl font-semibold mb-4">Sửa sản phẩm</h3>
 
             <label for="productSelect" class="block font-medium mb-2">Chọn sản phẩm cần sửa</label>
@@ -359,6 +359,9 @@
 
               <label for="editDescription" class="block font-medium">Mô tả</label>
               <textarea id="editDescription" name="description" class="w-full border px-3 py-2 rounded"></textarea>
+
+              <label for="editStock" class="block font-medium">Hàng tồn kho</label>
+              <input type="number" id="editStock" name="stock" step="1" class="w-full border px-3 py-2 rounded" />
 
               <div class="pt-4 flex justify-end space-x-2">
                 <button type="submit" class="bg-[#2a5f4d] text-white px-4 py-2 rounded hover:bg-[#244d3f]">Lưu</button>
@@ -692,6 +695,7 @@
           document.getElementById("editPrice").value = product.price || "";
           document.getElementById("editDiscountPrice").value = product.discount_price || "";
           document.getElementById("editDescription").value = product.description || "";
+          document.getElementById("editStock").value = product.stock || "";
         });
 
         // ======= LƯU TẠM DỮ LIỆU CHỈNH SỬA =======
@@ -705,13 +709,14 @@
           const price = parseFloat(document.getElementById("editPrice").value);
           const discount_price = parseFloat(document.getElementById("editDiscountPrice").value) || 0;
           const description = document.getElementById("editDescription").value.trim();
+          const stock = parseInt(document.getElementById("editStock").value);
 
-          if (!productId || !name || isNaN(price)) {
-            alert("Vui lòng điền đầy đủ thông tin sản phẩm hợp lệ.");
+          if (!productId || !name || isNaN(price) || price < 0 || stock < 0) {
+            alert("Vui lòng nhập thông tin hợp lệ.");
             return;
           }
 
-          editProductPayload = { productId, name, price, discount_price, description };
+          editProductPayload = { productId, name, price, discount_price, description, stock };
           document.getElementById("confirmEditSection").classList.remove("hidden");
         });
 
@@ -857,16 +862,32 @@
           document.getElementById("modalName").textContent = product.name;
           document.getElementById("modalImage").src = `${backendURL}/${product.image}`;
           document.getElementById("modalImage").alt = product.name;
-          document.getElementById("modalPrice").textContent = `Giá: ${Number(product.price).toLocaleString('vi-VN')}₫`;
+          document.getElementById("modalPrice").textContent = `Giá: ${Number(product.discount_price).toLocaleString('vi-VN')}₫`;
           document.getElementById("modalDescription").innerHTML =
             `<strong>Mô tả:</strong> ${product.description || 'Chưa có mô tả.'}`;
-          document.getElementById('addToCartBtn').dataset.productId = product.id;
+
+          const addToCartBtn = document.getElementById('addToCartBtn');
+          addToCartBtn.dataset.productId = product.id;
+
+          // Kiểm tra hàng tồn kho
+          if (parseInt(product.stock) === 0) {
+            addToCartBtn.disabled = true;
+            addToCartBtn.textContent = "Hết hàng";
+            addToCartBtn.classList.remove("bg-blue-600", "hover:bg-blue-700", "cursor-pointer");
+            addToCartBtn.classList.add("bg-gray-400", "cursor-not-allowed");
+          } else {
+            addToCartBtn.disabled = false;
+            addToCartBtn.textContent = "Thêm vào giỏ hàng";
+            addToCartBtn.classList.add("bg-blue-600", "hover:bg-blue-700", "cursor-pointer");
+            addToCartBtn.classList.remove("bg-gray-400", "cursor-not-allowed");
+          }
+
           document.getElementById("productModal").style.display = "flex";
         }
 
-        function closeModal() {
-          document.getElementById("productModal").style.display = "none";
-        }
+      function closeModal() {
+        document.getElementById("productModal").style.display = "none";
+      }
 
         async function loadProductList() {
           try {
@@ -905,7 +926,9 @@
                   : `<p>${Number(product.price).toLocaleString('vi-VN')}₫</p>`;
 
                 const productHtml = `
-                  <div class="relative rounded-2xl bg-[#FEE2E2] p-4 cursor-pointer">
+                  <div class="relative rounded-2xl bg-[#FEE2E2] p-4 cursor-pointer group">
+                    ${product.stock == 0
+                    ? `<span class="absolute top-0 left-0 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded-br-lg z-10">Hết Hàng</span>` : ''}
                     <img src="${imageUrl}" alt="${product.name}" data-id="${product.id}" class="mt-2 rounded-xl product-image hover:scale-105 transition-transform duration-200" />
                     <h3 class="font-semibold text-sm mb-1">${product.name}</h3>
                     <div class="flex justify-center space-x-1 mb-2">
@@ -953,6 +976,8 @@
       <script>
         function addToCart() {
           const btn = document.getElementById('addToCartBtn');
+          if (btn.disabled) return; // Chặn thêm nếu hết hàng
+
           const productId = btn.dataset.productId;
           const quantity = 1;
 

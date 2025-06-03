@@ -16,6 +16,7 @@ $name = $data['name'] ?? '';
 $price = $data['price'] ?? 0;
 $discount_price = $data['discount_price'] ?? 0;
 $description = $data['description'] ?? '';
+$stock = $data['stock'] ?? '';
 
 // Kiểm tra dữ liệu hợp lệ
 if (!$id || !$name || !is_numeric($price)) {
@@ -23,15 +24,21 @@ if (!$id || !$name || !is_numeric($price)) {
     exit;
 }
 
+if (!is_numeric($stock) || intval($stock) < 0) {
+    echo json_encode(['success' => false, 'message' => 'Giá trị hàng tồn kho không hợp lệ']);
+    exit;
+}
+$stock = intval($stock);
+
 // Cập nhật sản phẩm (có discount_price)
-$sql = "UPDATE products SET name = ?, price = ?, discount_price = ?, description = ? WHERE id = ?";
+$sql = "UPDATE products SET name = ?, price = ?, discount_price = ?, description = ?, stock = ? WHERE id = ?";
 $stmt = $conn->prepare($sql);
 if (!$stmt) {
     echo json_encode(['success' => false, 'message' => 'Lỗi chuẩn bị câu lệnh SQL']);
     exit;
 }
 
-$stmt->bind_param("sddsi", $name, $price, $discount_price, $description, $id);
+$stmt->bind_param("sddssi", $name, $price, $discount_price, $description, $stock, $id);
 
 if ($stmt->execute()) {
     echo json_encode(['success' => true]);

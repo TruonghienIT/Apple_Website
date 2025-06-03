@@ -38,7 +38,7 @@ $product_ids = array_map('intval', $product_ids);
 $product_ids_str = implode(',', $product_ids);
 
 // Lấy sản phẩm trong giỏ hàng
-$sql = "SELECT ci.product_id, ci.quantity, p.price 
+$sql = "SELECT ci.product_id, ci.quantity, p.discount_price 
         FROM cart_items ci
         JOIN products p ON ci.product_id = p.id
         WHERE ci.user_id = $user_id AND ci.product_id IN ($product_ids_str)";
@@ -53,7 +53,7 @@ $total_amount = 0;
 $cart_items = [];
 
 while ($row = mysqli_fetch_assoc($result)) {
-    $total_amount += $row['price'] * $row['quantity'];
+    $total_amount += $row['discount_price'] * $row['quantity'];
     $cart_items[] = [
         'product_id' => $row['product_id'],
         'quantity' => $row['quantity']

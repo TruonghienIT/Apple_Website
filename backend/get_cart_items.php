@@ -18,7 +18,7 @@ if (!$conn) {
 
 $base_url = "http://localhost/Web%20Apple/backend/";
 
-$sql = "SELECT p.id, p.name, p.image, p.price, c.quantity
+$sql = "SELECT p.id, p.name, p.image, p.discount_price, c.quantity
         FROM cart_items c
         JOIN products p ON c.product_id = p.id
         WHERE c.user_id = ?";
