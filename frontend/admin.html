@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quản lý sản phẩm</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="flex h-screen bg-gray-100 text-gray-800
+">
+      <aside class="w-64 bg-gray-900 text-white flex-shrink-0 flex flex-col">
+    <div class="px-6 py-5 text-xl font-bold border-b border-gray-700">
+      Quản trị Admin
+    </div>
+    <nav class="flex-1 px-4 py-6 space-y-2">
+
+      <a href="admin.html" class="block px-4 py-2 rounded bg-gray-800">📦 Quản lý sản phẩm</a>
+      <a href="dangnhap.html" class="block px-4 py-2 rounded hover:bg-red-600 transition text-red-400 mt-8">🚪 Đăng xuất</a>
+    </nav>
+  </aside>
+<main class="flex-1 overflow-y-auto">
+  <div class="container mx-auto py-6 px-4">
+    <h1 class="text-2xl font-bold mb-4">Trang quản lý sản phẩm</h1>
+    <!-- Chọn danh mục -->
+    <div class="mb-6">
+      <label for="categorySelect" class="font-semibold">Chọn danh mục:</label>
+      <select id="categorySelect" onchange="loadProductListByCategory()" class="ml-2 p-2 border rounded">
+        <option value="all">Tất cả</option>
+        <option value="Macbook">Macbook</option>
+        <option value="iPhone">iPhone</option>
+        <option value="iPad">iPad</option>
+        <option value="Apple Watch">Apple Watch</option>
+        <option value="AirPods">AirPods</option>
+        <option value="Phụ Kiện">Phụ kiện</option>
+      </select>
+      <button onclick="showAddModal()" class="ml-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700">Thêm sản phẩm</button>
+    </div>
+
+    <!-- Danh sách sản phẩm -->
+    <div id="productList" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+  </div>
+</main>
+
+  <!-- Modal thêm sản phẩm -->
+ <div id="addModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 overflow-auto">
+  <div class="bg-white rounded-lg shadow-lg w-full max-w-lg max-h-[90vh] p-6 overflow-y-auto">
+    <h2 class="text-xl font-bold mb-4">Thêm sản phẩm</h2>
+    <form id="addForm" class="space-y-4" onsubmit="submitAdd(event)">
+      <div>
+        <label class="block font-medium">Tên sản phẩm</label>
+        <input type="text" name="name" required class="w-full border p-2 rounded" />
+      </div>
+
+    <div>
+        <label class="block font-medium">Danh mục (category)</label>
+        <select name="category" id="category" required class="w-full border p-2 rounded">
+          <option value="">-- Chọn danh mục --</option>
+          <option value="Macbook">Macbook</option>
+          <option value="iPhone">iPhone</option>
+          <option value="iPad">iPad</option>
+          <option value="Apple Watch">Apple Watch</option>
+          <option value="AirPods">AirPods</option>
+          <option value="Phụ Kiện">Phụ kiện</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block font-medium">Loại nhỏ (subcategory)</label>
+        <select name="subcategory" id="subcategory" required class="w-full border p-2 rounded">
+          <option value="">-- Chọn loại nhỏ --</option>
+        </select>
+      </div>
+
+
+
+      <div>
+        <label class="block font-medium">Giá</label>
+        <input type="number" name="price" required class="w-full border p-2 rounded" />
+      </div>
+
+      <div>
+        <label class="block font-medium">Giá khuyến mãi</label>
+        <input type="number" name="discount_price" class="w-full border p-2 rounded" />
+      </div>
+
+      <div>
+        <label class="block font-medium">Tồn kho</label>
+        <input type="number" name="stock" class="w-full border p-2 rounded" />
+      </div>
+
+      <div>
+        <label class="block font-medium">Mô tả sản phẩm</label>
+        <textarea name="description" class="w-full border p-2 rounded" rows="3"></textarea>
+      </div>
+
+      <div>
+        <label class="block font-medium">Độ ưu tiên (priority)</label>
+        <input type="number" name="priority" value="0" class="w-full border p-2 rounded" />
+      </div>
+
+      <div>
+        <label class="block font-medium">Trạng thái</label>
+        <select name="status" class="w-full border p-2 rounded">
+          <option value="1">Hiển thị</option>
+          <option value="0">Ẩn</option>
+        </select>
+      </div>
+
+      <div>
+        <label class="block font-medium">Ảnh sản phẩm</label>
+        <input type="file" name="productImage" required class="w-full border p-2 rounded" />
+      </div>
+
+      <div class="flex justify-end space-x-2">
+        <button type="submit" class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700">Lưu</button>
+        <button type="button" onclick="closeAddModal()" class="border px-4 py-2 rounded hover:bg-gray-200">Hủy</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  const subcategoryOptions = {
+    iPhone: ["iPhone 12", "iPhone 13", "iPhone 14", "iPhone 15"],
+    iPad: ["iPad Gen", "iPad Pro", "iPad Mini", "iPad Air"],
+    Macbook: ["Macbook Air", "Macbook Pro"],
+   AirPods : ["AirPods","AirPods Pro","AirPods Max"],
+   "Phụ Kiện": ["Sạc", "Cáp", "Ốp lưng", "Bao da", "Giá đỡ", "Chuột", "Bàn phím"],
+
+    "Apple Watch": ["Apple Watch Series", "Apple Watch SE", "Apple Watch Ultra"]
+    
+  };
+
+  document.getElementById("category").addEventListener("change", function () {
+    const category = this.value;
+    const subcategorySelect = document.getElementById("subcategory");
+
+    // Xóa các option cũ
+    subcategorySelect.innerHTML = '<option value="">-- Chọn loại nhỏ --</option>';
+
+    // Thêm các option mới
+    if (subcategoryOptions[category]) {
+      subcategoryOptions[category].forEach(sub => {
+        const option = document.createElement("option");
+        option.value = sub;
+        option.textContent = sub;
+        subcategorySelect.appendChild(option);
+      });
+    }
+  });
+</script>
+
+
+  <!-- Modal sửa sản phẩm -->
+<div id="editModal" class="hidden fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 overflow-auto">
+  <div class="bg-white rounded-lg shadow-lg w-full max-w-lg max-h-[90vh] p-6 overflow-y-auto">
+    <h2 class="text-xl font-bold mb-4">Sửa sản phẩm</h2>
+    <form id="editForm" class="space-y-4" onsubmit="submitEdit(event)">
+      <input type="hidden" name="productId" />
+      <div>
+        <label class="block font-medium">Tên sản phẩm</label>
+        <input type="text" name="name" required class="w-full border p-2 rounded" />
+      </div>
+      <div>
+        <label class="block font-medium">Loại nhỏ (subcategory)</label>
+        <input type="text" name="subcategory" required class="w-full border p-2 rounded" />
+      </div>
+      <div>
+        <label class="block font-medium">Danh mục (category)</label>
+        <select name="category" required class="w-full border p-2 rounded">
+          <option value="">-- Chọn danh mục --</option>
+          <option value="Macbook">Macbook</option>
+          <option value="iPhone">iPhone</option>
+          <option value="iPad">iPad</option>
+          <option value="Apple Watch">Apple Watch</option>
+          <option value="AirPods">AirPods</option>
+          <option value="Phụ Kiện">Phụ kiện</option>
+        </select>
+      </div>
+      <div>
+        <label class="block font-medium">Giá</label>
+        <input type="number" name="price" required class="w-full border p-2 rounded" />
+      </div>
+      <div>
+        <label class="block font-medium">Giá khuyến mãi</label>
+        <input type="number" name="discount_price" class="w-full border p-2 rounded" />
+      </div>
+      <div>
+        <label class="block font-medium">Tồn kho</label>
+        <input type="number" name="stock" class="w-full border p-2 rounded" />
+      </div>
+      <div>
+        <label class="block font-medium">Mô tả sản phẩm</label>
+        <textarea name="description" class="w-full border p-2 rounded" rows="3"></textarea>
+      </div>
+      <div>
+        <label class="block font-medium">Độ ưu tiên (priority)</label>
+        <input type="number" name="priority" class="w-full border p-2 rounded" />
+      </div>
+      <div>
+        <label class="block font-medium">Trạng thái</label>
+        <select name="status" class="w-full border p-2 rounded">
+          <option value="1">Hiển thị</option>
+          <option value="0">Ẩn</option>
+        </select>
+      </div>
+      <div>
+        <label class="block font-medium">Ảnh sản phẩm (bỏ trống nếu không đổi)</label>
+        <input type="file" name="productImage" class="w-full border p-2 rounded" />
+      </div>
+      <div class="flex justify-end space-x-2">
+        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Lưu thay đổi</button>
+        <button type="button" onclick="closeEditModal()" class="border px-4 py-2 rounded hover:bg-gray-200">Hủy</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  const backendURL = 'http://localhost/Web%20Apple/backend';
+
+  window.products = []; // lưu tạm danh sách sản phẩm hiện tại
+
+  async function loadProductListByCategory() {
+    const category = document.getElementById('categorySelect').value;
+    const productListEl = document.getElementById('productList');
+    productListEl.innerHTML = '<p>Đang tải dữ liệu...</p>';
+
+    try {
+      const res = await fetch(`${backendURL}/get_product.php`);
+      const data = await res.json();
+
+      if (!data.success) {
+        productListEl.innerHTML = '<p class="text-red-500">Lỗi tải dữ liệu</p>';
+        return;
+      }
+
+      window.products = data.products; // lưu danh sách toàn bộ sản phẩm
+
+      const filteredProducts = category === 'all' 
+        ? window.products 
+        : window.products.filter(p => p.category === category);
+
+      if (filteredProducts.length === 0) {
+        productListEl.innerHTML = '<p class="col-span-full text-center text-gray-500">Không có sản phẩm nào</p>';
+        return;
+      }
+
+      productListEl.innerHTML = '';
+
+      filteredProducts.forEach(product => {
+        const card = document.createElement('div');
+        card.className = 'bg-white p-4 rounded shadow flex flex-col';
+
+        // Tạo đường dẫn ảnh đúng
+        const imageUrl = product.image.startsWith('http') 
+          ? product.image 
+          : `${backendURL}/${product.image}`;
+
+        card.innerHTML = `
+          <img src="${imageUrl}" alt="${product.name}" class="w-full h-40 object-contain mb-4 hover:scale-110 transition-transform duration-200" />
+          <h3 class="font-semibold text-lg mb-2">${product.name}</h3>
+          <p>Danh mục: ${product.category}</p>
+          <p>Giá gốc: <span class="line-through text-sm text-gray-500">${Number(product.price).toLocaleString('vi-VN')}₫<span></p>
+          ${product.discount_price ? `<p>Giá khuyến mãi: <span class="text-red-600">${Number(product.discount_price).toLocaleString('vi-VN')}₫</span></p>` : ''}
+          <p>Tồn kho: ${product.stock}</p>
+          <button onclick="showEditModal(${product.id})" class="mt-2 px-3 py-1 bg-blue-600 text-white rounded hover:bg-blue-700">Sửa</button>
+            <button onclick="deleteProduct(${product.id})" class="px-3 py-1 bg-red-600 text-white rounded mt-2 hover:bg-red-700">Xóa</button>
+        `;
+
+        productListEl.appendChild(card);
+      });
+
+    } catch (error) {
+      productListEl.innerHTML = `<p class="text-red-500">Lỗi tải dữ liệu: ${error.message}</p>`;
+    }
+  }
+
+  // ==== Modal Thêm sản phẩm ====
+
+  function showAddModal() {
+    document.getElementById('addModal').classList.remove('hidden');
+  }
+
+  function closeAddModal() {
+    document.getElementById('addModal').classList.add('hidden');
+    document.getElementById('addForm').reset();
+  }
+
+  document.getElementById('addModal').addEventListener('click', function(event) {
+    if (event.target === this) closeAddModal();
+  });
+
+  async function submitAdd(event) {
+    event.preventDefault();
+    const form = document.getElementById('addForm');
+    const formData = new FormData(form);
+
+    try {
+      const res = await fetch(`${backendURL}/add_product.php`, {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        alert('✅ Thêm sản phẩm thành công!');
+        closeAddModal();
+        loadProductListByCategory();
+      } else {
+        alert('❌ Lỗi: ' + data.message);
+      }
+    } catch (error) {
+      alert('Lỗi kết nối: ' + error.message);
+    }
+  }
+
+  // ==== Modal Sửa sản phẩm ====
+
+  function showEditModal(productId) {
+    const product = window.products.find(p => p.id == productId);
+
+    if (!product) {
+      alert('Không tìm thấy sản phẩm!');
+      return;
+    }
+
+    const form = document.getElementById('editForm');
+    form.productId.value = product.id;
+    form.name.value = product.name;
+    form.subcategory.value = product.subcategory;
+    form.category.value = product.category;
+    form.price.value = product.price;
+    form.discount_price.value = product.discount_price || '';
+    form.stock.value = product.stock || '';
+    form.description.value = product.description || '';
+    form.priority.value = product.priority || 0;
+    form.status.value = product.status || 1;
+
+    document.getElementById('editModal').classList.remove('hidden');
+  }
+
+  function closeEditModal() {
+    document.getElementById('editModal').classList.add('hidden');
+    document.getElementById('editForm').reset();
+  }
+
+  document.getElementById('editModal').addEventListener('click', function(event) {
+    if (event.target === this) closeEditModal();
+  });
+
+  async function submitEdit(event) {
+    event.preventDefault();
+    const form = document.getElementById('editForm');
+    const formData = new FormData(form);
+
+    try {
+      const res = await fetch(`${backendURL}/update_product.php`, {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        alert('✅ Cập nhật sản phẩm thành công!');
+        closeEditModal();
+        loadProductListByCategory();
+      } else {
+        alert('❌ Lỗi: ' + data.message);
+      }
+    } catch (error) {
+      alert('Lỗi kết nối: ' + error.message);
+    }
+  }
+
+  // Load dữ liệu lần đầu
+  loadProductListByCategory();
+
+    async function deleteProduct(id) {
+  if (!confirm('Bạn có chắc chắn muốn xóa sản phẩm này không?')) return;
+
+  try {
+    const res = await fetch(`${backendURL}/delete_product.php`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ id }),
+    });
+    const data = await res.json();
+
+    if (data.success) {
+      alert('✅ Xóa sản phẩm thành công!');
+      loadProductListByCategory(); // load lại danh sách sau khi xóa
+    } else {
+      alert('❌ Lỗi: ' + data.message);
+    }
+  } catch (error) {
+    alert('Lỗi kết nối: ' + error.message);
+  }
+}
+
+
+  
+</script>
+</body>
+</html>

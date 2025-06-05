@@ -8,15 +8,17 @@ if ($conn->connect_error) {
     exit;
 }
 
-// Lấy dữ liệu POST dạng JSON
-$data = json_decode(file_get_contents("php://input"), true);
-
-$id = $data['productId'] ?? null;
-$name = $data['name'] ?? '';
-$price = $data['price'] ?? 0;
-$discount_price = $data['discount_price'] ?? 0;
-$description = $data['description'] ?? '';
-$stock = $data['stock'] ?? '';
+// Lấy dữ liệu từ POST
+$id = $_POST['productId'] ?? null;
+$name = $_POST['name'] ?? '';
+$price = $_POST['price'] ?? 0;
+$discount_price = $_POST['discount_price'] ?? 0;
+$description = $_POST['description'] ?? '';
+$subcategory = $_POST['subcategory'] ?? '';
+$category = $_POST['category'] ?? '';
+$stock = $_POST['stock'] ?? 0;
+$priority = $_POST['priority'] ?? 0;
+$status = $_POST['status'] ?? 1;
 
 // Kiểm tra dữ liệu hợp lệ
 if (!$id || !$name || !is_numeric($price)) {
@@ -24,22 +26,58 @@ if (!$id || !$name || !is_numeric($price)) {
     exit;
 }
 
-if (!is_numeric($stock) || intval($stock) < 0) {
-    echo json_encode(['success' => false, 'message' => 'Giá trị hàng tồn kho không hợp lệ']);
-    exit;
-}
-$stock = intval($stock);
+// Nếu có file ảnh mới
+$image_path = null;
+if (isset($_FILES['productImage']) && $_FILES['productImage']['error'] === 0) {
+    $upload_dir = 'uploads/';
+    if (!is_dir($upload_dir)) mkdir($upload_dir, 0777, true);
+    $filename = time() . '_' . basename($_FILES['productImage']['name']);
+    $target_path = $upload_dir . $filename;
 
-// Cập nhật sản phẩm (có discount_price)
-$sql = "UPDATE products SET name = ?, price = ?, discount_price = ?, description = ?, stock = ? WHERE id = ?";
+    if (move_uploaded_file($_FILES['productImage']['tmp_name'], $target_path)) {
+        $image_path = $target_path;
+    } else {
+        echo json_encode(['success' => false, 'message' => 'Lỗi upload ảnh']);
+        exit;
+    }
+}
+
+// Câu lệnh SQL cập nhật
+$sql = "UPDATE products SET 
+    name = ?, 
+    price = ?, 
+    discount_price = ?, 
+    description = ?, 
+    subcategory = ?, 
+    category = ?, 
+    stock = ?, 
+    priority = ?, 
+    status = ?" . 
+    ($image_path ? ", image = ?" : "") . 
+    " WHERE id = ?";
+
 $stmt = $conn->prepare($sql);
 if (!$stmt) {
     echo json_encode(['success' => false, 'message' => 'Lỗi chuẩn bị câu lệnh SQL']);
     exit;
 }
 
-$stmt->bind_param("sddssi", $name, $price, $discount_price, $description, $stock, $id);
+// Gán biến
+if ($image_path) {
+    $stmt->bind_param(
+        "sddsssiiisi",
+        $name, $price, $discount_price, $description,
+        $subcategory, $category, $stock, $priority, $status, $image_path, $id
+    );
+} else {
+    $stmt->bind_param(
+        "sddsssiiii",
+        $name, $price, $discount_price, $description,
+        $subcategory, $category, $stock, $priority, $status, $id
+    );
+}
 
+// Thực thi
 if ($stmt->execute()) {
     echo json_encode(['success' => true]);
 } else {

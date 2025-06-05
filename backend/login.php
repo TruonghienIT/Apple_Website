@@ -6,7 +6,6 @@ ini_set('display_errors', 1);
 header('Content-Type: application/json; charset=UTF-8');
 require 'db.php';
 
-// Đọc dữ liệu JSON POST gửi lên
 $data = json_decode(file_get_contents("php://input"), true);
 
 if (!$data) {
@@ -22,7 +21,7 @@ if ($username === '' || $password === '') {
     exit();
 }
 
-$stmt = $conn->prepare("SELECT id, password FROM users WHERE username = ?");
+$stmt = $conn->prepare("SELECT id, username, password FROM users WHERE username = ?");
 if (!$stmt) {
     echo json_encode(['success' => false, 'message' => 'Lỗi truy vấn: ' . $conn->error]);
     exit();
@@ -30,8 +29,6 @@ if (!$stmt) {
 
 $stmt->bind_param("s", $username);
 
-// Thay vì gọi $stmt->execute() rồi lấy kết quả luôn,
-// ta gọi execute và check thành công hay không như bạn muốn
 if ($stmt->execute()) {
     $result = $stmt->get_result();
 
@@ -40,7 +37,13 @@ if ($stmt->execute()) {
 
         if (password_verify($password, $user['password'])) {
             $_SESSION['user_id'] = $user['id'];
-            echo json_encode(['success' => true, 'message' => '🎉 Đăng nhập thành công!']);
+            $_SESSION['username'] = $user['username'];
+
+            echo json_encode([
+                'success' => true,
+                'message' => '🎉 Đăng nhập thành công!',
+                'username' => $user['username']
+            ]);
         } else {
             echo json_encode(['success' => false, 'message' => 'Mật khẩu không đúng.']);
         }

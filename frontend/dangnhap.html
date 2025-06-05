@@ -73,7 +73,7 @@
     </form>
 
     <p class="mt-10 text-center text-red-600 text-sm">
-      Bạn chưa có tài khoản?
+Bạn chưa có tài khoản?
       <a href="dangky.html" class="text-[#0a84ff] font-semibold hover:underline">Tạo tài khoản</a>
     </p>
   </div>
@@ -83,9 +83,8 @@
     e.preventDefault();
 
     const messageBox = document.getElementById('messageBox');
-    messageBox.textContent = '';          // Xóa thông báo cũ
-    messageBox.style.color = '';          // Reset màu
-
+    messageBox.textContent = '';        
+    messageBox.style.color = '';          
     const username = document.getElementById('username').value.trim();
     const password = document.getElementById('password').value;
 
@@ -96,7 +95,7 @@
     }
 
     try {
-      const response = await fetch('../backend/login.php', {
+      const response = await fetch('http://localhost/Web%20Apple/backend/login.php', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -114,21 +113,25 @@
 
       if (result.success) {
         messageBox.textContent = result.message;
-        messageBox.style.color = '#0a84ff';  // Màu xanh dương cho thành công
-        // Chờ 1.5s rồi chuyển trang (cho user đọc thông báo)
+        messageBox.style.color = '#0a84ff';
+
         setTimeout(() => {
-          window.location.href = 'trangchu.html';
+          if (result.username && result.username.toLowerCase() === 'admin') {
+            window.location.href = 'admin.html';
+          } else {
+            window.location.href = 'trangchu.html';
+          }
         }, 1500);
       } else {
         messageBox.textContent = result.message;
-        messageBox.style.color = 'red'; // Màu đỏ cho lỗi
+        messageBox.style.color = 'red';
       }
-    } catch (error) {
-      messageBox.textContent = 'Lỗi kết nối đến máy chủ: ' + error.message;
-      messageBox.style.color = 'red';
-      console.error(error);
-    }
-  });
-  </script>
+        } catch (error) {
+          messageBox.textContent = 'Lỗi kết nối đến máy chủ: ' + error.message;
+          messageBox.style.color = 'red';
+          console.error(error);
+        }
+      });
+    </script>
 </body>
 </html>

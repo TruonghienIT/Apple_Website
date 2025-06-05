@@ -41,7 +41,7 @@
         <li><a class="hover:underline" href="Main.html">Cửa Hàng</a></li>
         <li class="relative group">
           <a class="hover:underline cursor-pointer" href="Mac.html">Mac</a>
-          <ul class="absolute left-0 mt-2 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
+          <ul class="absolute left-0 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
             <li><a href="Mac.html#MacbookAir" class="block px-4 py-2 hover:bg-gray-100">Macbook Air</a></li>
             <li><a href="Mac.html#MacbookPro" class="block px-4 py-2 hover:bg-gray-100">Macbook Pro</a></li>
           </ul> 
@@ -49,7 +49,7 @@
 
         <li class="relative group">
           <a class="hover:underline cursor-pointer" href="iPad.html">iPad</a>
-          <ul class="absolute left-0 mt-2 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
+          <ul class="absolute left-0 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
             <li><a href="iPad.html#iPadPro" class="block px-4 py-2 hover:bg-gray-100">iPad Pro </a></li>
             <li><a href="iPad.html#iPadAir" class="block px-4 py-2 hover:bg-gray-100">iPad Air</a></li>
             <li><a href="iPad.html#iPadMini" class="block px-4 py-2 hover:bg-gray-100">iPad Mini</a></li>
@@ -59,7 +59,7 @@
 
         <li class="group relative">
           <a class="hover:underline cursor-pointer" href="iPhone.html">iPhone</a>
-          <ul class="absolute left-0 mt-2 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
+          <ul class="absolute left-0 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
             <li><a href="iPhone.html#iPhone15" class="block px-4 py-2 hover:bg-gray-100">iPhone 15</a></li>
             <li><a href="iPhone.html#iPhone14" class="block px-4 py-2 hover:bg-gray-100">iPhone 14</a></li>
             <li><a href="iPhone.html#iPhone13" class="block px-4 py-2 hover:bg-gray-100">iPhone 13</a></li>
@@ -70,7 +70,7 @@
 
         <li class="group relative">
           <a class="hover:underline cursor-pointer" href="Watch.html">Watch</a>
-          <ul class="absolute left-0 mt-2 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
+          <ul class="absolute left-0 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
             <li><a href="Watch.html#WatchSeries" class="block px-4 py-2 hover:bg-gray-100">Apple Watch Series</a></li>
             <li><a href="Watch.html#WatchSE" class="block px-4 py-2 hover:bg-gray-100">Apple Watch SE</a></li>
             <li><a href="Watch.html#WatchUltra" class="block px-4 py-2 hover:bg-gray-100">Apple Watch Ultra</a></li>
@@ -79,7 +79,7 @@
 
         <li class="group relative">
           <a class="hover:underline cursor-pointer" href="AirPods.html">AirPods</a>
-          <ul class="absolute left-0 mt-2 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
+          <ul class="absolute left-0 hidden group-hover:flex flex-col bg-white border rounded-md shadow-md text-black w-40 z-10 transition-all duration-200">
             <li><a href="AirPods.html#AirPods" class="block px-4 py-2 hover:bg-gray-100">AirPods</a></li>
             <li><a href="AirPods.html#AirPodsPro" class="block px-4 py-2 hover:bg-gray-100">AirPods Pro</a></li>
             <li><a href="AirPods.html#AirPodsMax" class="block px-4 py-2 hover:bg-gray-100">AirPods Max</a></li>
@@ -207,8 +207,7 @@
 
   <!-- Add Button -->
   <div class="flex justify-end mb-4">
-    <button id="btnOpenAdd" class="bg-pink-500 text-white px-4 py-2 rounded-lg hover:bg-pink-600">
-      + Thêm phụ kiện
+    <button id="btnOpenAdd">
     </button>
   </div>
 
@@ -701,31 +700,34 @@
                   />
                   <h3 class="font-semibold text-sm mb-1 text-white">${product.name}</h3>
                   ${discountHtml}
-                  <div class="mt-3 flex gap-2">
-                    <button
-                      class="edit-btn bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm"
-                      data-id="${product.id}"
-                      data-name="${product.name}"
-                      data-price="${product.price}"
-                      data-discount_price="${product.discount_price}"
-                      data-description="${product.description || ""}"
-                      data-category="${product.category}"
-                    >
-                      Sửa
-                    </button>
-                    <button
-                      class="delete-btn bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
-                      data-id="${product.id}"
-                      data-name="${product.name}"
-                    >
-                      Xóa
-                    </button>
-                  </div>
+                  
+
                 </div>
               `;
 
               container.insertAdjacentHTML("beforeend", productHtml);
             });
+
+            // <div class="mt-3 flex gap-2">
+            //         <button
+            //           class="edit-btn bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm"
+            //           data-id="${product.id}"
+            //           data-name="${product.name}"
+            //           data-price="${product.price}"
+            //           data-discount_price="${product.discount_price}"
+            //           data-description="${product.description || ""}"
+            //           data-category="${product.category}"
+            //         >
+            //           Sửa
+            //         </button>
+            //         <button
+            //           class="delete-btn bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded text-sm"
+            //           data-id="${product.id}"
+            //           data-name="${product.name}"
+            //         >
+            //           Xóa
+            //         </button>
+            //       </div>
 
             // Gắn sự kiện click cho ảnh sản phẩm - mở modal chi tiết nếu có (bạn tự implement hàm openAccessoryModal)
             document.querySelectorAll(".product-image").forEach((img) => {
