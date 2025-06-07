@@ -24,7 +24,7 @@
 <body class="flex items-center bg-gradient-to-br from-black to-gray-900 justify-center px-4">
   <video autoplay loop muted playsinline
     class="fixed top-0 left-0 w-full h-full object-cover z-[-1]">
-    <source src="Image/video_nen.mp4" type="video/mp4" />
+    
   </video>
   <div class="w-full max-w-md bg-white/5 backdrop-blur-md rounded-3xl p-10 shadow-lg ring-1 ring-white/20">
     <h1 class="text-4xl font-extrabold text-center text-[#0a84ff] mb-8">Đăng nhập</h1>
@@ -116,22 +116,28 @@ Bạn chưa có tài khoản?
         messageBox.style.color = '#0a84ff';
 
         setTimeout(() => {
-          if (result.username && result.username.toLowerCase() === 'admin') {
+          const username = result.username?.toLowerCase();
+
+          if (username === 'admin') {
+            window.location.href = 'admin.html';
+          } else if (username === 'manager') {
+            window.location.href = 'admin.html';
+          } else if (username === 'staff') {
             window.location.href = 'admin.html';
           } else {
             window.location.href = 'trangchu.html';
           }
         }, 1500);
-      } else {
-        messageBox.textContent = result.message;
-        messageBox.style.color = 'red';
-      }
-        } catch (error) {
-          messageBox.textContent = 'Lỗi kết nối đến máy chủ: ' + error.message;
+        } else {
+          messageBox.textContent = result.message;
           messageBox.style.color = 'red';
-          console.error(error);
         }
-      });
+          } catch (error) {
+            messageBox.textContent = 'Lỗi kết nối đến máy chủ: ' + error.message;
+            messageBox.style.color = 'red';
+            console.error(error);
+          }
+        });
     </script>
 </body>
 </html>
